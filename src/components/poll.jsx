@@ -11,6 +11,23 @@ import Pollpopup from './pollPopup';
 export default function Poll(props){
 
     const [showModal, setShowModal] = React.useState(false);
+    const [votes, setVotes] = React.useState(5); //replce with prop
+    const [hasVoted, setVoted] = React.useState('');
+
+    function upVote(){
+        if (hasVoted!=='up'){
+            setVotes(votes++);
+            setVoted('up');
+        }
+        console.log(hasVoted!=='up');
+    }
+
+    function downVote(){
+        if (hasVoted!=='down'){
+            setVotes(votes--);
+            setVoted('down');
+        }
+    }
 
     return (
         <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" w="32vw" h="17vw">
@@ -25,7 +42,7 @@ export default function Poll(props){
                 mb={0}
                 >    
                 <GridItem rowSpan={2} colSpan={1} ml="2vw" mt="1vw">
-                    <ChevronUpIcon /> <Text>5{/*props.upvotes*/}</Text> <ChevronDownIcon />
+                    <ChevronUpIcon onClick={upVote} /> <Text>5{/*props.upvotes*/}</Text> <ChevronDownIcon onClick={downVote} />
                 </GridItem>
                 <GridItem colSpan={4} mt="2vw">
                     <Heading as="h6" size="md"> Poll title {/*props.pollName*/} </Heading>

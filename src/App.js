@@ -15,6 +15,8 @@ import Footer from './components/footer';
 // Pages
 import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
+import Register from "./pages/register";
+import Logout from "./pages/logout";
 import Create from "./pages/create";
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
             <Switch>
               <Route exact path = "/" component = {Dashboard}></Route>
               <Route path = "/login" component = {Login}></Route>
+              <Route path = "/register" component = {Register}></Route>
+              <Route path = "/logout" component = {Logout}></Route>
               <Route path = "/create" component = {Create}></Route>
             </Switch>
           </Box>
