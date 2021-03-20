@@ -7,6 +7,7 @@ import { Textarea } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react"
 import { useToast } from "@chakra-ui/react";
+import Poll from "../components/poll";
 
 export default function Profile(props){
 
@@ -44,8 +45,8 @@ export default function Profile(props){
                 templateRows="repeat(3, 10fr)"
                 templateColumns="repeat(5, 20fr)"
                 gap={1}
-                h="25vw"
-                w="70vw"
+                h="18vw"
+                w="37vw"
                 m="auto"
             >
                 <GridItem rowSpan={2} colSpan={2}>
@@ -69,7 +70,9 @@ export default function Profile(props){
                     <Button colorScheme="blue" mt="2vw" onClick={saveData}>Save</Button>
                 </GridItem>
             </Grid>
-            <Heading ml="50%">Your polls</Heading>
+            <Box ml="31vw" mt="3vw" w="37vw" style={{"overflowX":"scroll", "whiteSpace": "nowrap", "display":"inline-flex"}}>
+                <Poll /><Box ml="1vw"></Box><Poll /><Box ml="1vw"></Box><Poll />
+            </Box>
         </Box>
     )
 }
