@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, HStack, Radio, RadioGroup, Checkbox, CheckboxGroup, Button} from "@chakra-ui/react";
 
@@ -29,6 +30,7 @@ export default function Pollpopup(props){
         //Send the form options state here, has which options the user picked
     }
 
+
     return (
         <Modal isOpen={open} onClose={handleClose}>
             <ModalOverlay />
@@ -58,9 +60,9 @@ export default function Pollpopup(props){
                     <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
                         Submit
                     </Button>
-                    { canViewPollResults && <Button colorScheme="red" mr={3} onClick={handleClose}>
+                    { canViewPollResults && <Link to={`poll/${props.data.id}`} ><Button colorScheme="red" mr={3} onClick={handleClose}>
                         View Poll results
-                    </Button>}
+                    </Button></Link>}
                 </ModalFooter>
             </ModalContent>
         </Modal>
