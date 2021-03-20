@@ -23,7 +23,6 @@ import {
 } from "@chakra-ui/react";
 
 import initFirebase from '../lib/firebase';
-import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { addDoc, getDoc } from '../lib/db';
@@ -137,7 +136,7 @@ export default function Profile(props){
                 <Stack p={4} borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Flex justify>
                         <Box p={4}>
-                            <Avatar size="xl" src={userDoc.logo} onClick={()=>setShowIconModal(true)} />
+                            <Avatar size="xl" src={userDoc ? userDoc.logo : ""} onClick={()=>setShowIconModal(true)} />
                         </Box>
                         <Stack flex={1} m={4}>
                             <Stack direction={{ base: "column", md: "row" }}>
