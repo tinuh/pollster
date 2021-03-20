@@ -39,31 +39,34 @@ export default function Profile(props){
     const [pfpLink, setPfpLink] = React.useState('');
     const toast = useToast()
 
-    React.useEffect(async () => {
+    React.useEffect(() => {
         if (!user && !loadingUser) return window.location.href = '/login';
         if (!user) return;
 
-        const userData = await getDoc('users', user.uid);
-        if (!userData) {
-            await addDoc('users', {
-                displayName: "",
-                description: "",
-                logo: ""
-            }, user.uid);
-            setUserDoc({
-                displayName: "",
-                description: "",
-                logo: ""
-            });
-            setDisplayName("");
-            setDesc("");
-            setPfpLink("");
-        } else {
-            setUserDoc(userData);
-            setDisplayName(userData.displayName);
-            setDesc(userData.description);
-            setPfpLink(userData.logo);
+        async function checkUserDoc() {
+            const userData = await getDoc('users', user.uid);
+            if (!userData) {
+                await addDoc('users', {
+                    displayName: "",
+                    description: "",
+                    logo: ""
+                }, user.uid);
+                setUserDoc({
+                    displayName: "",
+                    description: "",
+                    logo: ""
+                });
+                setDisplayName("");
+                setDesc("");
+                setPfpLink("");
+            } else {
+                setUserDoc(userData);
+                setDisplayName(userData.displayName);
+                setDesc(userData.description);
+                setPfpLink(userData.logo);
+            }
         }
+        checkUserDoc();
     }, [user, loadingUser]);
 
     async function saveData(){
