@@ -72,7 +72,7 @@ export default function Discover(){
                 <Box w="90%" h="80vh" borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Map defaultCenter={[39.0831315, -77.2049467]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
                         {
-                            markers.map(marker => <Marker anchor={[marker.location._lat, marker.location._long]} payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} />)
+                            markers.map(marker => <Marker anchor={[marker.location._lat+Math.random()*.01, marker.location._long+Math.random()*.01]} payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} />)
                         }
                         
                     </Map>
