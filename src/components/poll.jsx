@@ -18,7 +18,7 @@ export default function Poll(props){
             </Box>
             <Heading> {props.pollName} </Heading>
             <Text> {props.pollDescription} </Text>
-            <Button variant="ghost" onClick={()=>setShowModal(true)}>Open in new page</Button>
+            <Button variant="ghost" onClick={()=>setShowModal(true)}>Open Poll</Button>
             {showModal && <Pollpopup data={props.popupInfo} />}
         </Box>
     )

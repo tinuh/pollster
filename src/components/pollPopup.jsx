@@ -5,20 +5,21 @@ import { Button } from "@chakra-ui/react";
 
 export default function Pollpopup(props){
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [ open, setOpen ] = React.useState(true);
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={open} onClose={()=>setOpen(false)}>
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader>{props.data.pollname}</ModalHeader>
+            <ModalHeader>{/*props.data.pollname*/}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                {props.data.form}
+                {/*props.data.form*/}
+                Body
             </ModalBody>
 
                 <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={onClose}>
+                    <Button colorScheme="blue" mr={3} onClick={()=>setOpen(false)}>
                         Submit
                     </Button>
                     <Button variant="ghost">Open in new page</Button>
