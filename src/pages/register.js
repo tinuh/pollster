@@ -44,10 +44,10 @@ export default function RegisterPage() {
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithPopup(provider);
+    await firebase.auth().signInWithRedirect(provider);
   }
 
-  return (
+  if (!loadingUser && !user) return (
     <Container maxW="container.sm" p={8}>
       <Box as='form' onSubmit={e => e.preventDefault()} autoComplete="off">
         <Stack spacing={4}>
@@ -68,4 +68,7 @@ export default function RegisterPage() {
       </Box>
     </Container>
   );
+  
+  // Prevents flashing page when logged in
+  return (<></>); // TODO: add loading page
 }

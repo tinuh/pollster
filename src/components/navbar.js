@@ -47,10 +47,9 @@ export default function NavbarComponent() {
           direction={["column", "row", "row", "row"]}
           pt={[4, 4, 0, 0]}
         >
-          <RLink to = "/"><MenuItem to="#">Home</MenuItem></RLink>
-          <RLink to = "/about"><MenuItem to="#">About</MenuItem></RLink>
-          {(user && !loadingUser) && <RLink to = "/"><MenuItem to="#">Dashboard</MenuItem></RLink>}
-          <RLink to = "/create"><MenuItem to="#">Create</MenuItem></RLink>
+          <RLink to = "/"><MenuItem to="#">{(user && !loadingUser) ? "Dashboard" : "Home"}</MenuItem></RLink>
+          <RLink to = "/discover"><MenuItem to="#">Discover</MenuItem></RLink>
+          {(user && !loadingUser) && <RLink to = "/create"><MenuItem to="#">Create</MenuItem></RLink>}
           <MenuItem to={user && !loadingUser ? "/logout" : "/login"} type="button">
             {user && !loadingUser ? "Logout" : "Login/Register"}
           </MenuItem>
