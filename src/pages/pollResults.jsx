@@ -17,7 +17,7 @@ export default function PollResults(){
             setPoll(pollData);
         }
         getInfo();
-    }, [])
+    }, [id])
 
     return(
         <>  

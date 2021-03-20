@@ -25,7 +25,7 @@ import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { addDoc, getDoc } from '../lib/db';
 import { useParams } from 'react-router-dom'
-import { FaBorderNone } from 'react-icons/fa';
+//import { FaBorderNone } from 'react-icons/fa';
 
 export default function Profile(props){
     const { user, loadingUser } = useAuth();
@@ -68,7 +68,7 @@ export default function Profile(props){
 
         }
         checkUserDoc();
-    }, [user, loadingUser]);
+    }, [user, loadingUser, uid]);
 
     async function saveData(){
         if (uid !== null || uid !== undefined){
