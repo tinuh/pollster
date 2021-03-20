@@ -6,8 +6,11 @@ import {Heading, Box} from "@chakra-ui/react";
 import {addDoc} from "../lib/db";
 import firebase from 'firebase/app';
 import { Checkbox, useToast } from "@chakra-ui/react";
+import {useAuth} from '../lib/auth';
 
 export default function Create() {
+    const { user, loadingUser } = useAuth();
+    const toast = useToast();
     let [form, setForm] = useState({
         name: "",
         description: "",
@@ -16,7 +19,6 @@ export default function Create() {
     let [loading, setLoading] = useState(false);
     let [answers, setAnswers] = useState([]);
     let [multiple, setMultiple] = useState(false);
-    const toast = useToast();
 
     let handleChange = (e, param) => {
         if (param==="name") {
