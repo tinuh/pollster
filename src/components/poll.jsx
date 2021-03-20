@@ -65,7 +65,7 @@ export default function Poll(props){
                 <Button colorScheme="blue" onClick={()=>setShowModal(true)} isFullWidth={true}>Open Poll</Button>
             </Stack>
             
-            {showModal && <Pollpopup set={setShowModal} data={props.poll} />}
+            {showModal && <Pollpopup set={setShowModal} data={props.data} />}
         </Box>
     )
 }

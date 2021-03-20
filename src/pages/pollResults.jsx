@@ -3,18 +3,29 @@ import {Doughnut} from 'react-chartjs-2';
 import { Box } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
+import { useParams } from 'react-router-dom';
+import { getDoc } from '../lib/db';
 
 export default function PollResults(){
-
+    const { id } = useParams();
     const pollHasVotes = true;
+    const [poll, setPoll] = React.useState(false);
+
+    React.useEffect(() => {
+        async function getInfo(){
+            const pollData = await getDoc('polls', id);
+            setPoll(pollData);
+        }
+        getInfo();
+    }, [id])
 
     return(
         <>  
-            <Heading ml="30vw">Poll results:</Heading>
+            <Heading align = "center" >Poll results</Heading>
             <Text ml="35vw" mt="1vw">Poll info:</Text>
             <Box ml="35vw" borderWidth="1px" borderRadius="lg" class="chart-container" style={{"position": "relative", "height":(pollHasVotes?"11vw":"9vw"), "width":"30vw"}}>
-                <Text ml="2vw" mt="1vw">Poll name: {"Example Name"}</Text> 
-                <Text ml="2vw" mt="1vw">Poll description: {"A short description that is cut off..."}</Text> 
+                <Text ml="2vw" mt="1vw">Poll name: {poll.name}</Text> 
+                <Text ml="2vw" mt="1vw">Poll description: {poll.description}</Text> 
                 <Text ml="2vw" mt="1vw">Poll responses: {5} </Text> 
                 {pollHasVotes && <Box><Text ml="2vw" mt="1vw">Poll votes: {2} </Text></Box> }
             </Box>
