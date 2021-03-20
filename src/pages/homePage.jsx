@@ -11,7 +11,7 @@ import {
     Center,
     Link as ChakraLink,
 } from '@chakra-ui/react';
-import { DownloadIcon } from '@chakra-ui/icons';
+//import { DownloadIcon } from '@chakra-ui/icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -72,7 +72,7 @@ export default function homePage(){
                 </SimpleGrid>
             </Container>
 
-            <Container maxW="container.lg" p={12}>
+            {/* <Container maxW="container.lg" p={12}>
                 <Heading as="h2" size="xl" my={2}
                     color="brand.500"
                 >Get the app</Heading>
@@ -80,7 +80,7 @@ export default function homePage(){
                 Download (or use the web version) Pollster today and create and answer polls to help your community.
                 </Text>
                 <Button colorScheme="blue" variant="solid" my={4} leftIcon={<DownloadIcon />}>Download for mobile/desktop</Button>
-            </Container>
+            </Container> */}
 
             <Container maxW="container.lg" p={12}>
                 <Heading as="h2" size="xl" my={2}
