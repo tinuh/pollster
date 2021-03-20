@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link as RLink} from 'react-router-dom';
 
 import {
   Box,
@@ -44,8 +45,9 @@ export default function NavbarComponent() {
           direction={["column", "row", "row", "row"]}
           pt={[4, 4, 0, 0]}
         >
-          <MenuItem to="/">Home</MenuItem>
-          <MenuItem to="/about">About</MenuItem>
+          <RLink to = "/"><MenuItem to="#">Home</MenuItem></RLink>
+          <RLink to = "/about"><MenuItem to="#">About</MenuItem></RLink>
+          <RLink to = "/create"><MenuItem to="#">Create</MenuItem></RLink>
           <MenuItem to="/login" type="button">
             Login/Register
           </MenuItem>
