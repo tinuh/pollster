@@ -38,7 +38,7 @@ export default function Profile(props){
     }
 
     return (
-        <Box>
+        <Box mt="2vw">
             <Heading ml="34%">Your Profile</Heading>
             <Grid
                 borderWidth="1px" borderRadius="lg" overflow="hidden"
