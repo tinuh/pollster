@@ -30,6 +30,20 @@ export const getDoc = async (colName, docId) => {
   }
 }
 
+// Fetches all documents from a collection
+export const getCol = async (colName) => {
+  const snapshot = await db.collection(colName).get();
+  if (snapshot.empty) {
+    return [];
+  }
+
+  var docs = [];
+  snapshot.forEach(doc => {
+    docs.push({ ...doc.data(), id: doc.id });
+  });
+  return docs;
+}
+
 export const getUserRef = async (userId) => {
   const userRef = await db.collection("users").doc(userId);
   return userRef;
