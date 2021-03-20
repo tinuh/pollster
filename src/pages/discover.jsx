@@ -6,7 +6,7 @@ import {
     Heading,
     SimpleGrid,
     Container,
-    useToast
+    //useToast
 } from "@chakra-ui/react";
 
 import Poll from '../components/poll';
@@ -26,12 +26,15 @@ import { getCol } from '../lib/db.js';
 export default function Discover(){
 
     const [markers, setMarkers] = React.useState(null);
-    const [location, setLocation] = React.useState([]);
-    const toast = useToast();
+    //const [location, setLocation] = React.useState([]);
+    //const toast = useToast();
 
-    React.useEffect(async()=>{
-        setMarkers(await getCol("polls"));
-        //console.log(markers)
+    React.useEffect(() => {
+
+        async function fetchPolls() {
+            setMarkers(await getCol("polls"));
+        }
+        fetchPolls();
 
         /*if (navigator.geolocation) { //check if geolocation is available
             await navigator.geolocation.getCurrentPosition(async function(pos){
