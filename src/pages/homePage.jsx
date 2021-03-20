@@ -9,7 +9,7 @@ export default function homePage(){
             <Text>A polling app with unlimited potential</Text>
             <Container align="center" display="inline-flex">
                 <img src='/hompagesvg/create.svg' alt="create" w="20%" h="20%" />
-                <Text ml="1vw" align="left">Teachers, members of the government, and even concerned citizens can lanuch polls about problems they are facing to get opinions on the best method to apprach the problem. Or, anyone can create polls just for fun! </Text>
+                <Text ml="1vw" align="left">Teachers, government officials, and even concerned citizens can lanuch polls about problems they are facing to get opinions on the best method to apprach the problem. Or, anyone can create polls just for fun! </Text>
             </Container>
             <Container align="center" display="inline-flex">
                 <Text ml="1vw" align="left">The community can pick and choose which polls are most important for them, this can allow the community to prioritze the most urget polls that could potentially cause drastic reforms. </Text>
