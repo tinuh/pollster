@@ -13,7 +13,7 @@ export default function Poll(props){
     const [showModal, setShowModal] = React.useState(false);
 
     return (
-        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" w="300px" h="170px">
+        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" w="32vw" h="17vw">
             <Grid
                 w="500px"
                 h="190px"
@@ -24,7 +24,7 @@ export default function Poll(props){
                 mr={0}
                 mb={0}
                 >    
-                <GridItem rowSpan={2} colSpan={1} ml="2vw" mt="2vw">
+                <GridItem rowSpan={2} colSpan={1} ml="2vw" mt="1vw">
                     <ChevronUpIcon /> <Text>5{/*props.upvotes*/}</Text> <ChevronDownIcon />
                 </GridItem>
                 <GridItem colSpan={4} mt="2vw">
@@ -33,7 +33,7 @@ export default function Poll(props){
                 <GridItem colSpan={4} mt="-2vw" size="xs">
                     <Text> Basic poll description {/*props.pollDescription*/} </Text>
                 </GridItem>
-                <GridItem colSpan={5} ml="1vw" mt="-2vw">
+                <GridItem colSpan={5} ml="1vw" mt="-3vw">
                     <Button colorScheme="blue" onClick={()=>setShowModal(true)} isFullWidth={true}>Open Poll</Button>
                 </GridItem>
             </Grid>
