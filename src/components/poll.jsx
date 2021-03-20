@@ -12,9 +12,9 @@ export default function Poll(props){
     const [showModal, setShowModal] = React.useState(false);
 
     return (
-        <Box>
+        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
             <Box>
-                <ChevronUpIcon /> {props.upvotes} <ChevronDownIcon />
+                <ChevronUpIcon /> <Text>5 </Text>{/*props.upvotes*/} <ChevronDownIcon />
             </Box>
             <Heading> {props.pollName} </Heading>
             <Text> {props.pollDescription} </Text>
