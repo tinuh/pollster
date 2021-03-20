@@ -55,7 +55,7 @@ export default function RegisterPage() {
           <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"/>
           <Input  value={password} onChange={e => setPassword(e.target.value)} type='password' placeholder="Password"/>
           <Input  value={password2} onChange={e => setPassword2(e.target.value)} type='password' placeholder="Confirm Password"/>
-          {message !== '' ? <Text color="red">{message}</Text> : null}
+          {message !== '' && <Text color="red">{message}</Text>}
           <Button colorScheme="blue" onClick={signUp} type="submit">Submit</Button>
 
           <Text align="center">Already have an account? <Link href="/login" color="brand.500">Login</Link></Text>
