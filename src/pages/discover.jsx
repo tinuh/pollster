@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map, Marker, Overlay } from 'pigeon-maps'
+import { Map, Marker } from 'pigeon-maps'
 
 import {
     Box, 
@@ -11,15 +11,15 @@ import {
 import Poll from '../components/poll';
 import Pollpopup from '../components/pollPopup';
 
-const containerStyle = {
+/* const containerStyle = {
     width: '100%',
     height: '50vw'
-};
+}; */
 
-const center = {
+/* const center = {
     lat: -3.745,
     lng: -38.523
-};
+}; */
 
 export default function Discover(){
     

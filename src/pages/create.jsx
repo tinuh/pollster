@@ -6,8 +6,7 @@ import {Heading, Box} from "@chakra-ui/react";
 import {addDoc} from "../lib/db";
 import { store } from 'react-notifications-component';
 import firebase from 'firebase/app';
-import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
-import {AiOutlineCloseCircle} from "react-icons/all";
+import { Checkbox } from "@chakra-ui/react";
 
 export default function Create() {
     let [form, setForm] = useState({
