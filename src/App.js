@@ -7,7 +7,6 @@ import {
 //import { useAuth } from './lib/auth';
 import { Box } from "@chakra-ui/react";
 import "./styles/App.css";
-import 'react-notifications-component/dist/theme.css'
 import 'animate.css/animate.compat.css'
 
 // Components
