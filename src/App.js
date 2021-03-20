@@ -7,7 +7,11 @@ import {
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./lib/theme";
 
-//Components
+// Components
+import Navbar from '../components/navbar';
+import Footer from '../components/footer';
+
+// Pages
 import Dashboard from "./pages/dashboard";
 import Create from "./pages/create";
 
@@ -15,12 +19,14 @@ function App() {
   return (
     <ChakraProvider theme={theme} resetCSS>
       <div className="App">
+        <Navbar/>
         <Router>
           <Switch>
-            <Route path = "/" component = {Dashboard}></Route>
+            <Route exact path = "/" component = {Dashboard}></Route>
             <Route path = "/create" component = {Create}></Route>
           </Switch>
         </Router>
+        <Footer/>
       </div>
     </ChakraProvider>
   );
