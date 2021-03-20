@@ -21,15 +21,16 @@ import {
     ModalCloseButton
 } from "@chakra-ui/react";
 
-import initFirebase from '../lib/firebase';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { addDoc, getDoc } from '../lib/db';
+import { useParams } from 'react-router-dom'
+import { FaBorderNone } from 'react-icons/fa';
 
 export default function Profile(props){
-    initFirebase();
     const { user, loadingUser } = useAuth();
     const [userDoc, setUserDoc] = React.useState();
+    const { uid } = useParams()
 
     const [edit, setEdit] = React.useState(false);
     const [displayName, setDisplayName] = React.useState(''); //get from firebase
@@ -43,7 +44,7 @@ export default function Profile(props){
         if (!user) return;
 
         async function checkUserDoc() {
-            const userData = await getDoc('users', user.uid);
+            const userData = await getDoc('users', uid ?? user.uid);
             if (!userData) {
                 await addDoc('users', {
                     displayName: "",
@@ -70,6 +71,10 @@ export default function Profile(props){
     }, [user, loadingUser]);
 
     async function saveData(){
+        if (uid !== null || uid !== undefined){
+            return null;
+        }
+
         setEdit(false);
 
         const newDoc = {
@@ -83,6 +88,10 @@ export default function Profile(props){
     }
 
     async function savePfpLink(){
+        if (uid !== null || uid !== undefined){
+            return null;
+        }
+
         setShowIconModal(false);
         const newDoc = {
             ...userDoc,
@@ -157,8 +166,12 @@ export default function Profile(props){
                         </Stack>
                     </Flex>
                     <Flex justify="space-between">
-                        <Button colorScheme="gray" onClick={()=>setEdit(true)}>Edit</Button>
-                        <Button colorScheme="blue" onClick={saveData}>Save</Button>
+                        {((!loadingUser) && ((uid === user.uid) || (uid === undefined)))&& 
+                            <>
+                                <Button colorScheme="gray" onClick={()=>setEdit(true)}>Edit</Button>
+                                <Button colorScheme="blue" onClick={saveData}>Save</Button>
+                            </>
+                        }
                     </Flex>
                 </Stack>
             </Container>
