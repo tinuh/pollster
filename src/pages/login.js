@@ -105,7 +105,7 @@ export default function LoginPage() {
           <LoginForm signInMethod = {signIn} email = {email} setEmail = {setEmail} signIn = {signIn} message = {message} password = {password} setPassword = {setPassword}/>
           <DividerWithText mt="6">or continue with</DividerWithText>
           <SimpleGrid mt="6" columns={1} spacing="3">
-            <Button onClick={() => (<signInWithGoogle />)} color="currentColor" variant="outline">
+            <Button onClick={signInWithGoogle} color="currentColor" variant="outline">
               <VisuallyHidden>Login with Google</VisuallyHidden>
               <FaGoogle/>
             </Button>
