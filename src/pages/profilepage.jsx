@@ -1,10 +1,12 @@
 import React from 'react';
+import { Box } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 
 export default function Profile(props){
 
     return (
         <Box>
-            <Header>"Profile"</Header>
+            <Heading>"Profile"</Heading>
         </Box>
     )
 }

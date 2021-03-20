@@ -16,7 +16,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Logout from "./pages/logout";
 import Create from "./pages/create";
-import Profile from "./pages/profile";
+import Profile from "./pages/profilepage";
 import NotFound from "./components/NotFound";
 import { useAuth } from './lib/auth';
 import {Box} from "@chakra-ui/react";
@@ -30,7 +30,7 @@ function App() {
             <Navbar/>
             <Switch>
               
-              //Put Unrestricted Routes Here
+              {/*Put Unrestricted Routes Here*/}
               <Route exact path = "/" component = {Dashboard}/>
               <Route path = "/login" component = {Login}/>
               <Route path = "/register" component = {Register}/>
@@ -40,7 +40,7 @@ function App() {
                 //Put restricted Routes Here
                 <>
                   <Route path = "/create" component = {Create}/>
-                  <Route path = "/profilepage" component = {Profile}/>
+                  <Route path = "/profile" component = {Profile}/>
                 </>
               }
 
