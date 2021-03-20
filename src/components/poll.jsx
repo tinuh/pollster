@@ -14,7 +14,7 @@ export default function Poll(props){
     return (
         <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
             <Box>
-                <ChevronUpIcon /> <Text>5 </Text>{/*props.upvotes*/} <ChevronDownIcon />
+                <ChevronUpIcon /> <Text>5</Text>{/*props.upvotes*/} <ChevronDownIcon />
             </Box>
             <Heading> {props.pollName} </Heading>
             <Text> {props.pollDescription} </Text>
