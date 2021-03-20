@@ -24,6 +24,7 @@ import Create from "./pages/create";
 import Profile from "./pages/profilepage";
 import NotFound from "./components/NotFound";
 import Contact from "./pages/contact";
+import PollResults from './pages/pollresults';
 
 function App() {
   const { user, loadingUser } = useAuth();
@@ -39,6 +40,9 @@ function App() {
               <Route exact path = "/" component = {Dashboard}/>
               <Route path = "/logout" component = {Logout}/>
               <Route path = "/contact" component = {Contact}/>
+
+              {/* Change to /dynamic by a poll id */}
+              <Route path = "/pollresults" component = {PollResults}/>
 
               {/* RESTRICTED ROUTES */}
               {(user && !loadingUser) && (<Route path = "/create" component = {Create}/>)}
