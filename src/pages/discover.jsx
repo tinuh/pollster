@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { Map, Marker, Overlay } from 'pigeon-maps'
 
 import {Box, Heading} from "@chakra-ui/react";
 
