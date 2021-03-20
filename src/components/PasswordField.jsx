@@ -33,7 +33,7 @@ export const PasswordField = React.forwardRef((props, ref) => {
   return (
     <FormControl id="password">
       <Flex justify="space-between">
-        <FormLabel>Password</FormLabel>
+        <FormLabel>{props.label || "Password"}</FormLabel>
       </Flex>
       <InputGroup>
         <InputRightElement>
