@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 //import { ChakraProvider } from "@chakra-ui/react"
