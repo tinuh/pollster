@@ -21,11 +21,11 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Logout from "./pages/logout";
 import Create from "./pages/create";
-import Profile from "./pages/profilepage";
+import Profile from "./pages/profilePage";
 import NotFound from "./pages/notFound";
 import ReportIssue from "./pages/reportIssue";
 import Contact from "./pages/contact";
-import PollResults from './pages/pollresults';
+import PollResults from './pages/pollResults';
 import Discover from './pages/discover';
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
               <Route exact path = "/" component = {Dashboard}/>
               <Route path = "/discover" component = {Discover}/>
               <Route path = "/create" component = {Create}/>
-              <Route path = "/profile" component = {Profile}/>
+              <Route exact path = "/profile" component = {Profile}/>
               <Route path = "/contact" component = {Contact}/>
               <Route path = "/reportissue" component = {ReportIssue}/>
 

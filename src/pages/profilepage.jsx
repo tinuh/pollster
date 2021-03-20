@@ -22,21 +22,74 @@ import {
     ModalCloseButton
 } from "@chakra-ui/react";
 
+import initFirebase from '../lib/firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { useAuth } from '../lib/auth';
+import { addDoc, getDoc } from '../lib/db';
+
 export default function Profile(props){
+    initFirebase();
+    const { user, loadingUser } = useAuth();
+    const [userDoc, setUserDoc] = React.useState();
 
     const [edit, setEdit] = React.useState(false);
-    const [displayName, setDisplayName] = React.useState('example'); //get from firebase
-    const [desc, setDesc] = React.useState("Example description... blah blah");
+    const [displayName, setDisplayName] = React.useState(''); //get from firebase
+    const [desc, setDesc] = React.useState("");
     const [showIconModal, setShowIconModal] = React.useState(false);
     const [pfpLink, setPfpLink] = React.useState('');
     const toast = useToast()
 
-    function saveData(){
+    React.useEffect(async () => {
+        if (!user && !loadingUser) return window.location.href = '/login';
+        if (!user) return;
+
+        const userData = await getDoc('users', user.uid);
+        if (!userData) {
+            await addDoc('users', {
+                displayName: "",
+                description: "",
+                logo: ""
+            }, user.uid);
+            setUserDoc({
+                displayName: "",
+                description: "",
+                logo: ""
+            });
+            setDisplayName("");
+            setDesc("");
+            setPfpLink("");
+        } else {
+            setUserDoc(userData);
+            setDisplayName(userData.displayName);
+            setDesc(userData.description);
+            setPfpLink(userData.logo);
+        }
+    }, [user, loadingUser]);
+
+    async function saveData(){
         setEdit(false);
+
+        const newDoc = {
+            ...userDoc,
+            displayName,
+            description: desc
+        };
+        delete newDoc.id;
+        await addDoc('users', newDoc, user.uid);
+        setUserDoc({ ...userDoc, displayName, description: desc });
     }
 
-    function savePfpLink(){
-        setShowIconModal(false); // and save it to firebase
+    async function savePfpLink(){
+        setShowIconModal(false);
+        const newDoc = {
+            ...userDoc,
+            logo: pfpLink
+        };
+        delete newDoc.id;
+        await addDoc('users', newDoc, user.uid);
+
+        setUserDoc({ ...userDoc, logo: pfpLink });
     }
 
     function handleDispChange(e){
@@ -62,12 +115,14 @@ export default function Profile(props){
             <Modal isOpen={showIconModal} onClose={()=>setShowIconModal(false)}>
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader>{/*props.data.pollname*/}</ModalHeader>
+                <ModalHeader>Change Logo URL</ModalHeader>
                 <ModalCloseButton />
-                <ModalBody>
-                    {/*props.data.form*/}
-                    <Input placeholder="link to profile pic" value={pfpLink} onChange={(e)=>setPfpLink(e.target.value)} />
-                </ModalBody>
+                    <ModalBody>
+                        <Box p={4} align="center">
+                            <Avatar size="xl" src={pfpLink}/>
+                        </Box>
+                        <Input placeholder="Logo URL" value={pfpLink} onChange={(e)=>setPfpLink(e.target.value)} />
+                    </ModalBody>
     
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={savePfpLink}>
@@ -82,25 +137,25 @@ export default function Profile(props){
                 <Stack p={4} borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Flex justify>
                         <Box p={4}>
-                            <Avatar size="xl" src="" onClick={()=>setShowIconModal(true)} />
+                            <Avatar size="xl" src={userDoc.logo} onClick={()=>setShowIconModal(true)} />
                         </Box>
                         <Stack flex={1} m={4}>
                             <Stack direction={{ base: "column", md: "row" }}>
                                 <Box w={{ base: "100%", md: "50%" }} m={2}>
                                     <Text align="left">Display name</Text>
                                 </Box>
-                                <Input value={displayName} disabled={!edit} onChange={(e)=>handleDispChange(e)} />
+                                <Input value={displayName} placeholder="Display name" disabled={!edit} onChange={(e)=>handleDispChange(e)} />
                             </Stack>
                             <Stack direction={{ base: "column", md: "row" }}>
                                 <Box w={{ base: "100%", md: "50%" }} m={2}>
                                     <Text align="left">Description</Text>
                                 </Box>
-                                <Textarea value={desc} rows="3" disabled={!edit} onChange={(e)=>handleDescChange(e)} />
+                                <Textarea value={desc} placeholder="Description" rows="3" disabled={!edit} onChange={(e)=>handleDescChange(e)} />
                             </Stack>
                         </Stack>
                     </Flex>
                     <Flex justify="space-between">
-                        <Button colorScheme="blue" onClick={()=>setEdit(true)}>Edit</Button>
+                        <Button colorScheme="gray" onClick={()=>setEdit(true)}>Edit</Button>
                         <Button colorScheme="blue" onClick={saveData}>Save</Button>
                     </Flex>
                 </Stack>
