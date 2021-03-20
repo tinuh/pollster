@@ -60,9 +60,9 @@ export default function NavbarComponent() {
 function Logo() {
   return (
     <Box>
-      <Link href="/" noUnderline>
+      <RLink to = "/">
         <Heading as="h1" size="xl">Pollster</Heading>
-      </Link>
+      </RLink>
     </Box>
   );
 }

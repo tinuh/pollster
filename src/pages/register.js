@@ -17,21 +17,23 @@ import {
 } from '@chakra-ui/react';
 import Link from '../components/link';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   initFirebase();
   const { user, loadingUser } = useAuth();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [password2, setPassword2] = React.useState("");
   const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
     if (user && !loadingUser) window.location.href = '/dashboard';
   }, [user, loadingUser]);
 
-  async function signIn() {
+  async function signUp() {
+    if (password !== password2) return setMessage('Passwords don\'t match');
     await firebase
     .auth()
-    .signInWithEmailAndPassword(email, password)
+    .createUserWithEmailAndPassword(email, password)
     .then(function() {
       window.location.href = '/dashboard';
     })
@@ -48,21 +50,22 @@ export default function LoginPage() {
   return (
     <Container maxW="container.sm" p={8}>
       <Box as='form' onSubmit={e => e.preventDefault()} autoComplete="off">
-        <Stack spacing={4} justify="center">
-          <Heading as="h2" size="xl">Login</Heading>
+        <Stack spacing={4}>
+          <Heading as="h2" size="xl">Register</Heading>
           <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"/>
           <Input  value={password} onChange={e => setPassword(e.target.value)} type='password' placeholder="Password"/>
+          <Input  value={password2} onChange={e => setPassword2(e.target.value)} type='password' placeholder="Confirm Password"/>
           {message !== '' ? <Text color="red">{message}</Text> : null}
-          <Button colorScheme="blue" onClick={signIn} type="submit">Submit</Button>
+          <Button colorScheme="blue" onClick={signUp} type="submit">Submit</Button>
 
-          <Text align="center">Don't have an account? <Link href="/register" color="brand.500">Register</Link></Text>
+          <Text align="center">Already have an account? <Link href="/login" color="brand.500">Login</Link></Text>
 
           <Stack direction="row" spacing={2} justify="center" py={2}>
             <Center>or</Center>
-            <Button colorScheme="gray" onClick={signInWithGoogle}>Sign in with Google</Button>
+            <Button colorScheme="gray" onClick={signInWithGoogle}>Sign up with Google</Button>
           </Stack>
         </Stack>
       </Box>
     </Container>
-  )
+  );
 }
