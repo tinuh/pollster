@@ -1,2 +1,0 @@
-# pollster
-Polling App

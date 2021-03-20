@@ -5,18 +5,22 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "./lib/theme";
+
 import Dashboard from "./pages/dashboard";
-//import { ChakraProvider } from "@chakra-ui/react"
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path = "/" component = {Dashboard}></Route>
-        </Switch>
-      </Router>
-    </div>
+    <ChakraProvider theme={theme} resetCSS>
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route path = "/" component = {Dashboard}></Route>
+          </Switch>
+        </Router>
+      </div>
+    </ChakraProvider>
   );
 }
 
