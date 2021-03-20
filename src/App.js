@@ -16,6 +16,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Logout from "./pages/logout";
 import Create from "./pages/create";
+import Profile from "./pages/profile";
 import NotFound from "./components/NotFound";
 import { useAuth } from './lib/auth';
 import {Box} from "@chakra-ui/react";
@@ -37,7 +38,10 @@ function App() {
 
               {(user && !loadingUser) &&
                 //Put restricted Routes Here
-                <Route path = "/create" component = {Create}/>
+                <>
+                  <Route path = "/create" component = {Create}/>
+                  <Route path = "/profilepage" component = {Profile}/>
+                </>
               }
 
               <Route component = {NotFound}/>
