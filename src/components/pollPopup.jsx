@@ -27,7 +27,6 @@ export default function Pollpopup(props){
                     <Button colorScheme="blue" mr={3} onClick={handleClose}>
                         Submit
                     </Button>
-                    <Button variant="ghost">Open in new page</Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>
