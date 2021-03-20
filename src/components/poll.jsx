@@ -55,13 +55,15 @@ export default function Poll(props){
                 mb={0}
                 w="25vw"
                 >    
-                <GridItem rowSpan={2} colSpan={1} ml="2vw" mt=".7vw">
-                    <ChevronUpIcon onClick={upVote} color={hasVoted==="up" && "green"} /> <Text>{votes}{/*props.upvotes*/}</Text> <ChevronDownIcon onClick={downVote} color={hasVoted==="down" && "red"} />
-                </GridItem>
-                <GridItem colSpan={4} mt="1.1vw">
+                {props.pollvoting &&
+                    <GridItem rowSpan={2} colSpan={1} ml="2vw" mt=".7vw">
+                        <ChevronUpIcon onClick={upVote} color={hasVoted==="up" && "green"} /> <Text>{votes}{/*props.upvotes*/}</Text> <ChevronDownIcon onClick={downVote} color={hasVoted==="down" && "red"} />
+                    </GridItem>
+                }
+                <GridItem colSpan={4} mt="1.1vw" ml={props.pollvoting?0:"1.2vw"}>
                     <Heading as="h6" size="md"> Poll title {/*props.pollName*/} </Heading>
                 </GridItem>
-                <GridItem colSpan={4} mt="-.4vw" size="xs">
+                <GridItem colSpan={4} mt="-.4vw" size="xs" ml={props.pollvoting?0:"1.2vw"}>
                     <Text> Basic poll description {/*props.pollDescription*/} </Text>
                 </GridItem>
                 <GridItem colSpan={5} ml="1.2vw" mb="1vw">

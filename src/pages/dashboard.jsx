@@ -12,7 +12,7 @@ export default function Dashboard() {
         <>
             <Box align="center">
                 <Heading as="h1">Pollster</Heading>
-                <Poll />
+                <Poll pollvoting={true} />
             </Box>
         </>
     )
