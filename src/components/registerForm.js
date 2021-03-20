@@ -1,6 +1,6 @@
 import { Button, FormControl, FormLabel, Input, Stack, Text } from '@chakra-ui/react'
 import * as React from 'react'
-import { PasswordField } from './PasswordField'
+import { PasswordField } from './passwordField'
 
 export const RegisterForm = (props) => {
   return (

@@ -22,7 +22,7 @@ import Register from "./pages/register";
 import Logout from "./pages/logout";
 import Create from "./pages/create";
 import Profile from "./pages/profilepage";
-import NotFound from "./components/NotFound";
+import NotFound from "./pages/notFound";
 import ReportIssue from "./pages/reportIssue";
 import Contact from "./pages/contact";
 import PollResults from './pages/pollresults';
