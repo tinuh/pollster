@@ -34,3 +34,17 @@ export const getUserRef = async (userId) => {
   const userRef = await db.collection("users").doc(userId);
   return userRef;
 }
+
+export const getUserDocs = async (colName, userId) => {
+  const userRef = await getUserRef(userId);
+  const snapshot = await db.collection(colName).where('author', '==', userRef).get();
+  if (snapshot.empty) {
+    return [];
+  }
+
+  var docs = [];
+  snapshot.forEach(doc => {
+    docs.push({ ...doc.data(), id: doc.id });
+  });
+  return docs;
+}

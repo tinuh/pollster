@@ -25,18 +25,21 @@ export default function Create() {
     let [multiple, setMultiple] = useState(false);
     let [type, setType] = useState("multipleChoice");
 
-    React.useEffect(async () => {
+    React.useEffect(() => {
         if (!user && !loadingUser) return window.location.href = '/login';
         if (!user) return;
 
-        const userData = await getDoc('users', user.uid);
-        if (!userData) {
-            await addDoc('users', {
-                displayName: "",
-                description: "",
-                logo: ""
-            }, user.uid);
+        async function checkUserDoc() {
+            const userData = await getDoc('users', user.uid);
+            if (!userData) {
+                await addDoc('users', {
+                    displayName: "",
+                    description: "",
+                    logo: ""
+                }, user.uid);
+            }
         }
+        checkUserDoc();
     }, [user, loadingUser]);
 
     let handleChange = (e, param) => {
@@ -163,8 +166,14 @@ export default function Create() {
                     </>
                 )}
                 
-
-                <Checkbox value = {multiple} onChange = {() => setMultiple(!multiple)}>Choose Multiple?</Checkbox><br/><br/>
+                
+                <Box mb={5}>
+                    <Checkbox 
+                        value = {multiple} 
+                        onChange = {() => setMultiple(!multiple)} 
+                        disabled = {type === "text"}
+                    >Choose Multiple?</Checkbox>
+                </Box>
 
                 <Button colorScheme="green" onClick = {addChoice} disabled = {loading || type === "text"}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>

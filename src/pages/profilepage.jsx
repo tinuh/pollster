@@ -1,5 +1,5 @@
 import React from 'react';
-import Poll from "../components/poll";
+
 import { 
     Container,
     Box,
@@ -8,7 +8,6 @@ import {
     Heading,
     Avatar,
     Input,
-    SimpleGrid,
     Textarea,
     Text, 
     Button,
@@ -65,6 +64,7 @@ export default function Profile(props){
                 setDesc(userData.description);
                 setPfpLink(userData.logo);
             }
+
         }
         checkUserDoc();
     }, [user, loadingUser]);
@@ -162,21 +162,6 @@ export default function Profile(props){
                     </Flex>
                 </Stack>
             </Container>
-
-            <Heading size="lg" mt={12} align="center" fontWeight="bold">Your Polls</Heading>
-
-            <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-                <Poll/>
-                <Poll/>
-                <Poll/>
-                <Poll/>
-                <Poll/>
-                <Poll/>
-                <Poll/>
-                <Poll/>
-                <Poll/>
-                <Poll/>
-            </SimpleGrid>
         </Container>
     )
 }
