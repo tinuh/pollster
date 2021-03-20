@@ -4,8 +4,10 @@ import initFirebase from '../lib/firebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
-import {LoginForm} from "../components/loginForm";
-import {DividerWithText} from '../components/dividerWithText';
+import { addDoc, getDoc } from '../lib/db';
+
+import { LoginForm } from "../components/loginForm";
+import { DividerWithText } from '../components/dividerWithText';
 //import {PasswordField} from "../components/PasswordField";
 import { FaGoogle } from 'react-icons/fa';
 
@@ -34,7 +36,7 @@ export default function LoginPage() {
 
   async function signIn() {
     await firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => {
+    .then((u) => { // u.user.uid
       window.location.href = '/';
     })
     .catch(function(err) {
@@ -44,10 +46,17 @@ export default function LoginPage() {
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithPopup(provider)
-    .then((u) => {
-      // TODO: add user doc
-      //u.user.uid
+    await firebase.auth().signInWithRedirect(provider)
+    .then(async (u) => {
+      // If is new user, create doc in users col
+      const existingUser = await getDoc('users', u.user.uid);
+      if (!existingUser) {
+        await addDoc('users', {
+          displayName: "",
+          description: "",
+          logo: ""
+        }, u.user.uid);
+      }
       window.location.href = '/';
     })
     .catch(function(err) {
@@ -57,23 +66,6 @@ export default function LoginPage() {
 
   if (!loadingUser && !user) return (
     <Container maxW="container.sm" p={8}>
-      {/* <Box as='form' onSubmit={e => e.preventDefault()} autoComplete="off">
-        <Stack spacing={4} justify="center">
-          <Heading as="h2" size="xl">Login</Heading>
-          <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"/>
-          <Input  value={password} onChange={e => setPassword(e.target.value)} type='password' placeholder="Password"/>
-          {message !== '' && <Text color="red">{message}</Text>}
-          <Button colorScheme="blue" onClick={signIn} type="submit">Submit</Button>
-
-          <Text align="center">Don't have an account? <Link href="/register" color="brand.500">Register</Link></Text>
-
-          <Stack direction="row" spacing={2} justify="center" py={2}>
-            <Center>or</Center>
-            <Button colorScheme="gray" onClick={signInWithGoogle}>Sign in with Google</Button>
-          </Stack>
-        </Stack>
-      </Box> */}
-
       <Box bg={mode('gray.50', 'inherit')} minH="100vh" py="12" px={{ sm: '6', lg: '8' }}>
       <Box maxW={{ sm: 'md' }} mx={{ sm: 'auto' }} w={{ sm: 'full' }}>
         <Heading mt="6" textAlign="center" size="xl" fontWeight="extrabold">
