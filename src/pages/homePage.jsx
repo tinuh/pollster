@@ -1,16 +1,20 @@
 import React from 'react';
+import { Link as RLink } from 'react-router-dom';
 import {
     Box,
     Container,
     SimpleGrid,
     Heading,
-    Text,
     Button,
+    Text,
     Image,
     Center,
     Link as ChakraLink,
 } from '@chakra-ui/react';
 import { DownloadIcon } from '@chakra-ui/icons';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 export default function homePage(){
     return (
@@ -22,7 +26,9 @@ export default function homePage(){
                 <Heading as="h2" size="lg" fontWeight="normal">
                     A community polling app with unlimited potential
                 </Heading>
-                <Button my={8} colorScheme="blue" size="lg">Start discovering today</Button>
+                <RLink to="/discover">
+                    <Button my={8} colorScheme="blue" size="lg">Start discovering today</Button>
+                </RLink>
             </Box>
 
             <Container maxW="container.lg" p={12}>
@@ -33,7 +39,7 @@ export default function homePage(){
                     </Center>
                     <Heading as="h3" size="lg" my={2}>For everyone, and anyone.</Heading>
                     <Text fontSize="lg">
-                        Teachers, members of the government, and even concerned citizens can lanuch polls about problems they are facing to get opinions on the best method to apprach the problem. Or, anyone can create polls just for fun!
+                        Teachers, members of the government, and even concerned citizens can launch polls about problems they are facing to get opinions on the best method to approach the problem. Or, anyone can create polls just for fun!
                     </Text>
                 </Box>
                 <Box>
@@ -42,7 +48,7 @@ export default function homePage(){
                     </Center>
                     <Heading as="h3" size="lg" my={2}>Customized and relevant.</Heading>
                     <Text fontSize="lg">
-                        The community can pick and choose which polls are most important for them, this can allow the community to prioritze the most urget polls that could potentially cause drastic reforms.
+                        The community can pick and choose which polls are most important for them, this can allow the community to prioritize the most urgent polls that could potentially cause drastic reforms.
                     </Text>
                 </Box>
                 <Box>
@@ -51,7 +57,7 @@ export default function homePage(){
                     </Center>
                     <Heading as="h3" size="lg" my={2}>Built with community values in mind.</Heading>
                     <Text fontSize="lg">
-                        Easily find polls near you. You can answer polls related to problems that are arising in your community that can help better the enviornment, aid in the growth of local startups, allow you to share your ideas with your local government, and so much more!
+                        Easily find polls near you. You can answer polls related to problems that are arising in your community that can help better the environment, aid in the growth of local startups, allow you to share your ideas with your local government, and so much more!
                     </Text>
                 </Box>
                 <Box>
@@ -71,7 +77,7 @@ export default function homePage(){
                     color="brand.500"
                 >Get the app</Heading>
                 <Text fontSize="lg">
-                Download (or use the web version) Pollster today and create and answer polls to help your community
+                Download (or use the web version) Pollster today and create and answer polls to help your community.
                 </Text>
                 <Button colorScheme="blue" variant="solid" my={4} leftIcon={<DownloadIcon />}>Download for mobile/desktop</Button>
             </Container>
@@ -83,7 +89,7 @@ export default function homePage(){
                 Our source code is open to the public.
                 </Text>
                 <ChakraLink href="https://github.com/tinuh/pollster" target="_blank" style={{ textDecoration: 'none' }}>
-                    <Button colorScheme="gray" variant="solid" my={4} leftIcon={<DownloadIcon />}>GitHub repo</Button>
+                    <Button colorScheme="gray" variant="solid" my={4} leftIcon={<FontAwesomeIcon icon={faGithub}/>}>GitHub repo</Button>
                 </ChakraLink>
             </Container>
         </>
