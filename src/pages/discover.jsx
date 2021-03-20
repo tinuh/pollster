@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map, Marker } from 'pigeon-maps'
+import { Map, Marker, Overlay } from 'pigeon-maps'
 
 import {
     Box, 
@@ -11,7 +11,7 @@ import {
 
 import Poll from '../components/poll';
 import Pollpopup from '../components/pollPopup';
-import { getCol } from '../lib/db.js';
+import { getCol, getUserRef } from '../lib/db.js';
 
 /* const containerStyle = {
     width: '100%',
@@ -73,6 +73,9 @@ export default function Discover(){
                     <Map defaultCenter={[39.0831315, -77.2049467]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
                         {
                             markers.map(marker => <Marker anchor={[marker.location._lat, marker.location._long]} payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} />)
+                        }
+                        {
+                            markers.map(marker => <Overlay anchor={[marker.location._lat, marker.location._long]} offset={[120, 79]}><img src='/img/pigeon.jpg' payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} alt='' /></Overlay>)
                         }
                         
                     </Map>
