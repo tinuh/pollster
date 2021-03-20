@@ -4,6 +4,9 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { useAuth } from './lib/auth';
+import { Box } from "@chakra-ui/react";
+import "./styles/App.css";
 
 
 // Components
@@ -18,8 +21,7 @@ import Logout from "./pages/logout";
 import Create from "./pages/create";
 import Profile from "./pages/profilepage";
 import NotFound from "./components/NotFound";
-import { useAuth } from './lib/auth';
-import { Box } from "@chakra-ui/react";
+import Contact from "./pages/contact";
 
 function App() {
   const { user, loadingUser } = useAuth();
@@ -33,6 +35,7 @@ function App() {
               {/* UNRESTRICTED ROUTES */}
               <Route exact path = "/" component = {Dashboard}/>
               <Route path = "/logout" component = {Logout}/>
+              <Route path = "/contact" component = {Contact}/>
 
               {/* RESTRICTED ROUTES */}
               {(user && !loadingUser) && (<Route path = "/create" component = {Create}/>)}

@@ -3,6 +3,7 @@ import {FormControl, FormLabel, Input, Textarea, Container, Button } from "@chak
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {Heading, Box} from "@chakra-ui/react";
+import {addDoc} from "../lib/db";
 
 export default function Create() {
     let [form, setForm] = useState({
@@ -45,10 +46,11 @@ export default function Create() {
 
     let submit = () => {
         setLoading(true);
-        //let values = form;
+        let values = form;
         setForm({firstName: "", description: "", question: ""});
 
         //Put firebase API Call
+        addDoc('polls', values);
     }
 
     return (
@@ -76,7 +78,7 @@ export default function Create() {
 
                 {answers.map((answer, index) =>
                     <>
-                        <FormControl id={"Choice " + (index + 1)} isRequired><FontAwesomeIcon onClick = {() => removeChoice(index)} icon={faTimes}/>
+                        <FormControl id={"Choice " + (index + 1)} isRequired><FontAwesomeIcon className = "deleteIcon" onClick = {() => removeChoice(index)} icon={faTimes}/>
                             <FormLabel>{"Choice " + (index + 1)}</FormLabel>
                             <Input value = {answer} onChange={(e) => handleQuestion(e, index)} placeholder={"Choice " + (index + 1)} />
                         </FormControl>
