@@ -11,12 +11,14 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { useAuth } from '../lib/auth';
 
 import Link from './link';
 
 export default function NavbarComponent() {
   const [isOpen, setIsOpen] = React.useState(false);
   
+  const { user, loadingUser } = useAuth();
   const toggle = () => setIsOpen(!isOpen);
 
   return (
@@ -47,9 +49,10 @@ export default function NavbarComponent() {
         >
           <RLink to = "/"><MenuItem to="#">Home</MenuItem></RLink>
           <RLink to = "/about"><MenuItem to="#">About</MenuItem></RLink>
+          {(user && !loadingUser) && <RLink to = "/"><MenuItem to="#">Dashboard</MenuItem></RLink>}
           <RLink to = "/create"><MenuItem to="#">Create</MenuItem></RLink>
-          <MenuItem to="/login" type="button">
-            Login/Register
+          <MenuItem to={user && !loadingUser ? "/logout" : "/login"} type="button">
+            {user && !loadingUser ? "Logout" : "Login/Register"}
           </MenuItem>
         </Stack>
       </Box>
