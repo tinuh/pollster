@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
-import {FormControl, FormLabel, Input, Textarea, Container, Button } from "@chakra-ui/react";
+import {FormControl, FormLabel, Input, Textarea, Container, Button, Checkbox, useToast, Select, Heading, Box } from "@chakra-ui/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import {Heading, Box} from "@chakra-ui/react";
-import { Checkbox, useToast } from "@chakra-ui/react";
 
 import initFirebase from '../lib/firebase';
 import firebase from 'firebase/app';
@@ -25,6 +23,7 @@ export default function Create() {
     let [loading, setLoading] = useState(false);
     let [answers, setAnswers] = useState([]);
     let [multiple, setMultiple] = useState(false);
+    let [type, setType] = useState("multipleChoice");
 
     React.useEffect(async () => {
         if (!user && !loadingUser) return window.location.href = '/login';
@@ -74,12 +73,11 @@ export default function Create() {
         let values = form;
         values.choices = [...answers];
         values.selectMultiple = multiple;
-        values.type = "multpleChoice";
+        values.type = type;
 
         if (navigator.geolocation) { //check if geolocation is available
             await navigator.geolocation.getCurrentPosition(async function(pos){
                 values.location = new firebase.firestore.GeoPoint(pos.coords.latitude, pos.coords.longitude);
-                
                 values.author = await getUserRef(user.uid);
 
                 try{
@@ -127,11 +125,11 @@ export default function Create() {
     return (
         <Box textAlign="center">
             <Container>
-                <Heading as="h1">Create Poll</Heading><br/>
+                <Heading as="h1" m={12}>Create Poll</Heading><br/>
 
                 <FormControl id="name" isRequired>
                     <FormLabel>Poll Name</FormLabel>
-                    <Input value = {form.name} onChange={(e) => handleChange(e, "name")} placeholder="Poll name" />
+                    <Input value = {form.name} onChange={(e) => handleChange(e, "name")} placeholder="Poll name" autoComplete = "off" />
                 </FormControl><br/>
                 <FormControl id="description" isRequired>
                     <FormLabel>Description</FormLabel>
@@ -139,21 +137,27 @@ export default function Create() {
                         value={form.description}
                         onChange={(e) => handleChange(e, "description")}
                         placeholder="Enter your description here"
-                        size="sm"
                     />
                 </FormControl><br/>
+
                 <FormControl id="question" isRequired>
                     <FormLabel>Question</FormLabel>
                     <Input value = {form.question} onChange={(e) => handleChange(e, "question")} placeholder="Question" />
                 </FormControl><br/>
 
+                <FormControl id="type" isRequired>
+                    <FormLabel>Type</FormLabel>
+                    <Select value = {type} onChange={(e) => setType(e.target.value)} isRequired>
+                        <option value="multipleChoice">Multiple Choice</option>
+                        <option value="text">Text Field</option>
+                    </Select>
+                </FormControl><br/>
+
                 {answers.map((answer, index) =>
                     <>
                         <FormControl id={"Choice " + (index + 1)} isRequired>
-                            <FormLabel><FontAwesomeIcon style = {{display:"inline", textAlign: "right", padding: "none"}} className = "deleteIcon" onClick = {() => removeChoice(index)} icon={faTimes}/> &nbsp; {"Choice " + (index + 1)}</FormLabel>
-                            
-                            
-                            <Input value = {answer} onChange={(e) => handleQuestion(e, index)} placeholder={"Choice " + (index + 1)} />
+                            <FormLabel><FontAwesomeIcon style = {{display:"inline", textAlign: "right", padding: "none"}} className = "deleteIcon" onClick = {() => removeChoice(index)} icon={faTimes}/> &nbsp; {"Choice " + (index + 1)}</FormLabel>                
+                            <Input disabled = {type === "text"} value = {answer} onChange={(e) => handleQuestion(e, index)} placeholder={"Choice " + (index + 1)} />
                         </FormControl>
                         <br/>
                     </>
@@ -162,7 +166,7 @@ export default function Create() {
 
                 <Checkbox value = {multiple} onChange = {() => setMultiple(!multiple)}>Choose Multiple?</Checkbox><br/><br/>
 
-                <Button colorScheme="green"  onClick = {addChoice} disabled = {loading}>Add Choice</Button> &nbsp;
+                <Button colorScheme="green" onClick = {addChoice} disabled = {loading || type === "text"}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>
             </Container>
 
