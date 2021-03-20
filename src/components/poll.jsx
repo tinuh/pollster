@@ -4,7 +4,7 @@ import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
-import { Grid, GridItem } from "@chakra-ui/react"
+import { Stack, Flex, Center, } from "@chakra-ui/react"
 
 import Pollpopup from './pollPopup';
 
@@ -45,32 +45,28 @@ export default function Poll(props){
     }
 
     return (
-        <Box minW="16vw" maxW="16vw" borderWidth="1px" borderRadius="lg" overflow="hidden" >
-            <Grid
-                templateRows="repeat(3, .3fr)"
-                templateColumns="repeat(5, .1fr)"
-                gap={4}
-                ml="2px"
-                mr={0}
-                mb={0}
-                w="25vw"
-                >    
-                {props.pollvoting &&
-                    <GridItem rowSpan={2} colSpan={1} ml="2vw" mt=".7vw">
-                        <ChevronUpIcon onClick={upVote} color={hasVoted==="up" && "green"} /> <Text ml=".2vw">{votes}{/*props.upvotes*/}</Text> <ChevronDownIcon onClick={downVote} color={hasVoted==="down" && "red"} />
-                    </GridItem>
-                }
-                <GridItem colSpan={4} mt="1.1vw" ml={props.pollvoting?0:"1.2vw"}>
-                    <Heading as="h6" size="md"> Poll title {/*props.pollName*/} </Heading>
-                </GridItem>
-                <GridItem colSpan={4} mt="-.4vw" size="xs" ml={props.pollvoting?0:"1.2vw"}>
-                    <Text> Basic poll description {/*props.pollDescription*/} </Text>
-                </GridItem>
-                <GridItem colSpan={5} ml="1.2vw" mb="1vw">
-                    <Button colorScheme="blue" onClick={()=>setShowModal(true)} isFullWidth={true}>Open Poll</Button>
-                </GridItem>
-            </Grid>
+        <Box px={8} py={{ base: 12, lg: 8 }} borderWidth="1px" borderRadius="lg" overflow="hidden">
+            <Stack direction="column" spacing={4}>
+                <Flex>
+                    {props.pollvoting && 
+                        <Stack direction="column" pr={6}>
+                            <ChevronUpIcon onClick={upVote} color={hasVoted==="up" && "green"} />
+                            <Text ml=".2vw">{votes}{/*props.upvotes*/}</Text>
+                            <ChevronDownIcon onClick={downVote} color={hasVoted==="down" && "red"} />
+                        </Stack>
+                    }
+                    <Center flex={1}>
+                        <Box align="left">
+                            <Heading as="h6" size="md"> Poll title {/*props.pollName*/}</Heading>
+                            <Text> Basic poll description {/*props.pollDescription*/}</Text>
+                        </Box>
+                    </Center>
+                </Flex>
+                <Button colorScheme="blue" onClick={()=>setShowModal(true)} isFullWidth={true}>Open Poll</Button>
+            </Stack>
+            
             {showModal && <Pollpopup data={props.popupInfo} set={setShowModal} />}
         </Box>
     )
 }
+
