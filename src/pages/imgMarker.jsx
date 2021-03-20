@@ -14,7 +14,7 @@ export default function ProfileMarker(props){
 
     return (
         <Overlay anchor={[props.marker.location._lat, props.marker.location._long]} offset={[10, 40]} >
-            <img src={image}  width={20} height={20} alt='' />
+            <img src={image} width={20} height={20} alt='' />
         </Overlay>
     )
 }
