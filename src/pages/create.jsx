@@ -159,11 +159,11 @@ export default function Create() {
                         <br/>
                     </>
                 )}
-                <br/><br/>
+                
 
                 <Checkbox value = {multiple} onChange = {() => setMultiple(!multiple)}>Choose Multiple?</Checkbox><br/><br/>
 
-                <Button colorScheme="red"  onClick = {addChoice} disabled = {loading}>Add Choice</Button> &nbsp;
+                <Button colorScheme="green"  onClick = {addChoice} disabled = {loading}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>
             </Container>
 
