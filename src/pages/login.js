@@ -24,6 +24,10 @@ export default function LoginPage() {
   const [password, setPassword] = React.useState("");
   const [message, setMessage] = React.useState("");
 
+  React.useEffect(() => {
+    if (user && !loadingUser) window.location.href = '/';
+  }, [user, loadingUser]);
+
   async function signIn() {
     await firebase
     .auth()

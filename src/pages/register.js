@@ -25,6 +25,10 @@ export default function RegisterPage() {
   const [password2, setPassword2] = React.useState("");
   const [message, setMessage] = React.useState("");
 
+  React.useEffect(() => {
+    if (user && !loadingUser) window.location.href = '/';
+  }, [user, loadingUser]);
+
   async function signUp() {
     if (password !== password2) return setMessage('Passwords don\'t match');
     await firebase
@@ -57,8 +61,8 @@ export default function RegisterPage() {
         <Stack spacing={4}>
           <Heading as="h2" size="xl">Register</Heading>
           <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"/>
-          <Input  value={password} onChange={e => setPassword(e.target.value)} type='password' placeholder="Password"/>
-          <Input  value={password2} onChange={e => setPassword2(e.target.value)} type='password' placeholder="Confirm Password"/>
+          <Input value={password} onChange={e => setPassword(e.target.value)} type='password' placeholder="Password"/>
+          <Input value={password2} onChange={e => setPassword2(e.target.value)} type='password' placeholder="Confirm Password"/>
           {message !== '' && <Text color="red">{message}</Text>}
           <Button colorScheme="blue" onClick={signUp} type="submit">Submit</Button>
 
