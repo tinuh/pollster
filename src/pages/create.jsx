@@ -25,18 +25,21 @@ export default function Create() {
     let [multiple, setMultiple] = useState(false);
     let [type, setType] = useState("multipleChoice");
 
-    React.useEffect(async () => {
+    React.useEffect(() => {
         if (!user && !loadingUser) return window.location.href = '/login';
         if (!user) return;
 
-        const userData = await getDoc('users', user.uid);
-        if (!userData) {
-            await addDoc('users', {
-                displayName: "",
-                description: "",
-                logo: ""
-            }, user.uid);
+        async function checkUserDoc() {
+            const userData = await getDoc('users', user.uid);
+            if (!userData) {
+                await addDoc('users', {
+                    displayName: "",
+                    description: "",
+                    logo: ""
+                }, user.uid);
+            }
         }
+        checkUserDoc();
     }, [user, loadingUser]);
 
     let handleChange = (e, param) => {

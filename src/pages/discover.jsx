@@ -43,17 +43,16 @@ export default function Discover(){
             <Container maxW="container.lg" mt={12}>
                 <Heading>Top rated polls near you: </Heading>
                 <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
-                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
+                    <Poll pollvoting={true} name="test" description="test description"/>
                 </SimpleGrid>
             </Container>
         </Box>

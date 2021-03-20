@@ -57,8 +57,8 @@ export default function Poll(props){
                     }
                     <Center flex={1}>
                         <Box align="left">
-                            <Heading as="h6" size="md"> Poll title {/*props.pollName*/}</Heading>
-                            <Text> Basic poll description {/*props.pollDescription*/}</Text>
+                            <Heading as="h6" size="md">{props.name}</Heading>
+                            <Text>{props.description}</Text>
                         </Box>
                     </Center>
                 </Flex>
