@@ -12,6 +12,7 @@ import {
 import Poll from '../components/poll';
 import Pollpopup from '../components/pollPopup';
 import { getCol, getUserFromRef } from '../lib/db.js';
+import ProfileMarker from './imgMarker';
 
 /* const containerStyle = {
     width: '100%',
@@ -72,14 +73,10 @@ export default function Discover(){
                 <Box w="90%" h="80vh" borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Map defaultCenter={[39.0831315, -77.2049467]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
                         {
-                            markers.map(marker => <Marker anchor={[marker.location._lat, marker.location._long]} payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} />)
+                            markers.map(marker => <Marker anchor={[marker.location._lat, marker.location._long]}  width={50} height={50} onClick={() => handleClick(marker)} />)
                         }
                         {
-                            markers.map(marker => 
-                                <Overlay anchor={[marker.location._lat, marker.location._long]} offset={[10, 40]}>
-                                    <img src={async()=>await getUserFromRef(marker.author).logo} payload={marker} width={20} height={20} onClick={({ payload }) => handleClick(payload)} alt='' />
-                                </Overlay>
-                            )
+                            markers.map(marker => <ProfileMarker marker={marker} onClick={()=>handleClick(marker)} />)
                         }
                         
                     </Map>
