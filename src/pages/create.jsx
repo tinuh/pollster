@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react'
 import {FormControl, FormLabel, Input, Textarea, Container, Button, ButtonGroup } from "@chakra-ui/react";
 import { faPooStorm } from '@fortawesome/free-solid-svg-icons';
+import {Heading, Box} from "@chakra-ui/react";
 
 export default function Create() {
     let [form, setForm] = React.useState({
@@ -13,8 +14,10 @@ export default function Create() {
     }
 
     return (
-        <div>
+        <Box textAlign="center">
             <Container>
+                <Heading as="h1">Create Poll</Heading><br/>
+
                 <FormControl id="first-name" isRequired>
                     <FormLabel>Poll Name</FormLabel>
                     <Input value = {form.firstName} onChange={(e) => handleChange(e, "firstName")} placeholder="First name" />
@@ -29,9 +32,9 @@ export default function Create() {
                     />
                 </FormControl><br/>
 
-                <center><Button colorScheme="blue">Submit</Button></center><br/><br/>
+                <Button colorScheme="blue">Submit</Button><br/><br/>
             </Container>
 
-        </div>
+        </Box>
     )
 }
