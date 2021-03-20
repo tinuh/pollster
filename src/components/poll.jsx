@@ -45,7 +45,7 @@ export default function Poll(props){
     }
 
     return (
-        <Box maxW="16vw" borderWidth="1px" borderRadius="lg" overflow="hidden" >
+        <Box minW="16vw" maxW="16vw" borderWidth="1px" borderRadius="lg" overflow="hidden" >
             <Grid
                 templateRows="repeat(3, .3fr)"
                 templateColumns="repeat(5, .1fr)"
