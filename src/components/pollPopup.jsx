@@ -7,8 +7,13 @@ export default function Pollpopup(props){
 
     const [ open, setOpen ] = React.useState(true);
 
+    function handleClose(){
+        props.set(false);
+        setOpen(false);
+    }
+
     return (
-        <Modal isOpen={open} onClose={()=>setOpen(false)}>
+        <Modal isOpen={open} onClose={handleClose}>
             <ModalOverlay />
             <ModalContent>
             <ModalHeader>{/*props.data.pollname*/}</ModalHeader>
@@ -19,7 +24,7 @@ export default function Pollpopup(props){
             </ModalBody>
 
                 <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={()=>setOpen(false)}>
+                    <Button colorScheme="blue" mr={3} onClick={handleClose}>
                         Submit
                     </Button>
                     <Button variant="ghost">Open in new page</Button>
