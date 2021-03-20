@@ -22,6 +22,7 @@
     "framer-motion": "^3.10.3",
     "google-maps-react": "^2.0.6",
     "pigeon-maps": "^0.19.3",
+    "public-ip": "^4.0.3",
     "react": "^17.0.1",
     "react-chartjs-2": "^2.11.1",
     "react-dom": "^17.0.1",

@@ -1,12 +1,32 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import publicIp from 'public-ip';
 
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, HStack, Radio, RadioGroup, Checkbox, CheckboxGroup, Button} from "@chakra-ui/react";
+import initFirebase from '../lib/firebase';
+import { addSubDoc } from '../lib/db';
 
-export default function Pollpopup(props){
+import { 
+    Modal, 
+    ModalOverlay, 
+    ModalContent, 
+    ModalHeader, 
+    ModalFooter, 
+    ModalBody, 
+    ModalCloseButton, 
+    FormControl, 
+    HStack, 
+    Radio, 
+    RadioGroup, 
+    Checkbox, 
+    CheckboxGroup, 
+    Button
+} from "@chakra-ui/react";
+
+export default function PollPopup(props){
+    initFirebase();
 
     const [ open, setOpen ] = React.useState(true);
-    const canViewPollResults = true; //get from db somehow
+    const canViewPollResults = true; // always visible for now
     const [formOptions, setForm] = React.useState(props.data.choices.map(choice=>({'name':choice, 'selected':false})));
     const checkboxes = props.data.selectMultiple;
 
@@ -25,9 +45,17 @@ export default function Pollpopup(props){
         }
     }
 
-    function handleSubmit(){
+    async function handleSubmit(){
         handleClose();
         //Send the form options state here, has which options the user picked
+        const answer = formOptions.map(answer => answer.selected);
+        const ip = await publicIp.v4({
+            fallbackUrls: ['https://ifconfig.co/ip']
+        });
+        await addSubDoc('polls', props.data.id, 'responses', {
+            ip: ip,
+            answer
+        });
     }
 
 
