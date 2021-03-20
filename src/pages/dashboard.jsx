@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Poll from '../components/poll';
 
 export default function Dashboard() {
     return (

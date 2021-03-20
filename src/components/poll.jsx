@@ -3,6 +3,8 @@ import { Box } from "@chakra-ui/react";
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
+
 import Pollpopup from './pollPopup';
 
 export default function Poll(props){
