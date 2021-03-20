@@ -36,13 +36,11 @@ function App() {
               <Route path = "/register" component = {Register}/>
               <Route path = "/logout" component = {Logout}/>
 
-              {(user && !loadingUser) &&
-                //Put restricted Routes Here
-                <>
-                  <Route path = "/create" component = {Create}/>
-                  <Route path = "/profile" component = {Profile}/>
-                </>
-              }
+              {/*Put restricted Routes Here in this format*/}
+              {(user && !loadingUser) && (<Route path = "/create" component = {Create}/>)}
+              {(user && !loadingUser) && (<Route path = "/profile" component = {Profile}/>)}
+              
+
 
               <Route component = {NotFound}/>
             </Switch>

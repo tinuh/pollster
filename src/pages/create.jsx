@@ -1,14 +1,14 @@
-import React, {useState, useRef} from 'react'
-import {FormControl, FormLabel, Input, Textarea, Container, Button, ButtonGroup } from "@chakra-ui/react";
-import { faPooStorm } from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react'
+import {FormControl, FormLabel, Input, Textarea, Container, Button } from "@chakra-ui/react";
+//import { faPooStorm } from '@fortawesome/free-solid-svg-icons';
 import {Heading, Box} from "@chakra-ui/react";
 
 export default function Create() {
-    let [form, setForm] = React.useState({
+    let [form, setForm] = useState({
         firstName: "",
         description: ""
     })
-    let [loading, setLoading] = React.useState(false);
+    let [loading, setLoading] = useState(false);
 
     let handleChange = (e, param) => {
         param === "firstName" ? setForm({firstName: e.target.value, description: form.description}) : setForm({firstName: form.firstName, description: e.target.value})
@@ -16,7 +16,7 @@ export default function Create() {
 
     let submit = () => {
         setLoading(true);
-        let values = form;
+        //let values = form;
         setForm({firstName: "", description: ""});
 
         //Put firebase API Call
