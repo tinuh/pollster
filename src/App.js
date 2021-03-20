@@ -21,17 +21,17 @@ function App() {
   return (
     <ChakraProvider theme={theme} resetCSS>
       <AuthProvider>
-        <Box minH="100vh">
-          <Navbar/>
-          <Router>
+        <Router>
+          <Box minH="100vh">
+            <Navbar/>
             <Switch>
               <Route exact path = "/" component = {Dashboard}></Route>
               <Route path = "/login" component = {Login}></Route>
               <Route path = "/create" component = {Create}></Route>
             </Switch>
-          </Router>
-        </Box>
-        <Footer/>
+          </Box>
+          <Footer/>
+        </Router>
       </AuthProvider>
     </ChakraProvider>
   );
