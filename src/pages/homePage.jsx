@@ -1,9 +1,12 @@
 import React from 'react';
-import { Container, Text } from "@chakra-ui/react";
+import { Container, Text, Button, Heading } from "@chakra-ui/react";
+import { DownloadIcon } from '@chakra-ui/icons';
 
 export default function homePage(){
     return (
         <>
+            <Heading>POLLSTER</Heading>
+            <Text>A polling app with unlimited potential</Text>
             <Container align="center" display="inline-flex">
                 <img src='/hompagesvg/options.svg' alt="options" w="20%" h="20%" /> <Text ml="1vw" align="left">The community can pick and choose which polls are most important for them, this can allow the community to prioritze the most urget polls that could potentially cause drastic reforms. </Text>
             </Container>
@@ -13,6 +16,8 @@ export default function homePage(){
             <Container align="center" display="inline-flex">
                 <img src='/hompagesvg/pwa.svg' alt="pwa" w="20%" h="20%" /> <Text ml="1vw" align="left">Pollster is PWA optimized, so you can download it and run it as if it were a native app!</Text>
             </Container>
+            <Text> Download (or use the web version) Pollster today and create and answer polls to help your community </Text>
+            <Button colorScheme="twitter" leftIcon={<DownloadIcon />}> DOWNLOAD </Button>
         </>
     )
 }
