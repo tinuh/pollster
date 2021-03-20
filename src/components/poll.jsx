@@ -45,7 +45,7 @@ export default function Poll(props){
     }
 
     return (
-        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" >
+        <Box maxW="16vw" borderWidth="1px" borderRadius="lg" overflow="hidden" >
             <Grid
                 templateRows="repeat(3, .3fr)"
                 templateColumns="repeat(5, .1fr)"
@@ -53,6 +53,7 @@ export default function Poll(props){
                 ml="2px"
                 mr={0}
                 mb={0}
+                w="25vw"
                 >    
                 <GridItem rowSpan={2} colSpan={1} ml="2vw" mt=".7vw">
                     <ChevronUpIcon onClick={upVote} color={hasVoted==="up" && "green"} /> <Text>{votes}{/*props.upvotes*/}</Text> <ChevronDownIcon onClick={downVote} color={hasVoted==="down" && "red"} />
