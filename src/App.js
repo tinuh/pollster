@@ -19,14 +19,14 @@ function App() {
   return (
     <ChakraProvider theme={theme} resetCSS>
       <div className="App">
-        <Navbar/>
         <Router>
+          <Navbar/>
           <Switch>
             <Route exact path = "/" component = {Dashboard}></Route>
             <Route path = "/create" component = {Create}></Route>
           </Switch>
+          <Footer/>
         </Router>
-        <Footer/>
       </div>
     </ChakraProvider>
   );
