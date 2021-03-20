@@ -123,7 +123,7 @@ export default function Create() {
     }
 
     return (
-        <Box textAlign="center">
+        <Box textAlign="center" className = "content">
             <Container>
                 <Heading as="h1" m={12}>Create Poll</Heading><br/>
 
