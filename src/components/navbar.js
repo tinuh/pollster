@@ -49,7 +49,7 @@ export default function NavbarComponent() {
         >
           <RLink to = "/"><MenuItem to="#">{(user && !loadingUser) ? "Dashboard" : "Home"}</MenuItem></RLink>
           <RLink to = "/discover"><MenuItem to="#">Discover</MenuItem></RLink>
-          {(user && !loadingUser) && <RLink to = "/create"><MenuItem to="#">Create</MenuItem></RLink>}
+          {(user && !loadingUser) && <><RLink to = "/create"><MenuItem to="#">Create</MenuItem></RLink><RLink to = "/profile"><MenuItem to="#">Profile</MenuItem></RLink></>}
           <MenuItem to={user && !loadingUser ? "/logout" : "/login"} type="button">
             {user && !loadingUser ? "Logout" : "Login/Register"}
           </MenuItem>
