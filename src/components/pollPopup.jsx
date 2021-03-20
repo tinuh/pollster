@@ -17,10 +17,10 @@ export default function Pollpopup(props){
     function handleClick(e){
         if (checkboxes){
             const changedOption = formOptions.filter(option=>option.name===e.target.value)[0]
-            setForm(formOptions.map(option=>({"name":option.name, "selected":option.name==changedOption.name?!changedOption.selected:option.selected})))
+            setForm(formOptions.map(option=>({"name":option.name, "selected":option.name===changedOption.name?!changedOption.selected:option.selected})))
         }
         else{
-            setForm(formOptions.map(option=>({"name":option.name, "selected":option.name==e.target.value?true:false}))) //make them all unclicked
+            setForm(formOptions.map(option=>({"name":option.name, "selected":option.name===e.target.value?true:false}))) //make them all unclicked
         }
     }
 

@@ -7,7 +7,6 @@ import {
 //import { useAuth } from './lib/auth';
 import { Box } from "@chakra-ui/react";
 import "./styles/App.css";
-import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import 'animate.css/animate.compat.css'
 
@@ -35,7 +34,6 @@ function App() {
         <Router>
           <Box minH="100vh">
             <Navbar/>
-            <ReactNotification/>
             <Switch>
               
               <Route exact path = "/" component = {Dashboard}/>

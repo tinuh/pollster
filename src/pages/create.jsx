@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {Heading, Box} from "@chakra-ui/react";
 import {addDoc} from "../lib/db";
-import { store } from 'react-notifications-component';
 import firebase from 'firebase/app';
-import { Checkbox } from "@chakra-ui/react";
+import { Checkbox, useToast } from "@chakra-ui/react";
 
 export default function Create() {
     let [form, setForm] = useState({
@@ -17,7 +16,7 @@ export default function Create() {
     let [loading, setLoading] = useState(false);
     let [answers, setAnswers] = useState([]);
     let [multiple, setMultiple] = useState(false);
-
+    const toast = useToast();
 
     let handleChange = (e, param) => {
         if (param==="name") {
@@ -62,23 +61,15 @@ export default function Create() {
                 try{
                     console.log(values);
                     addDoc('polls', values);
-        
-                    store.addNotification({
-                        title: "Success",
-                        message: "Poll Successfully Created!",
-                        type: "success",
-                        insert: "bottom",
-                        isMobile: true,
-                        container: "top-right",
-                        animationIn: ["animated", "flipInX"],
-                        animationOut: ["animated", "flipOutX"],
-                        dismiss: {
+                    
+                    toast({
+                        title: "Created",
+                        description: "Success your Poll was created",
+                        status: "success",
                         duration: 5000,
-                        onScreen: true,
-                        showIcon: true
-                        },
+                        isClosable: true,
                     });
-        
+
                     setForm({name: "", description: "", question: ""});
                     setAnswers([]);
                     //console.log(values);
@@ -86,40 +77,24 @@ export default function Create() {
                     setLoading(false);
                 }
                 catch (error){
-                    store.addNotification({
+                    toast({
                         title: "Error",
-                        message: "Firebase API Error! Data not submitted",
-                        type: "danger",
-                        insert: "bottom",
-                        isMobile: true,
-                        container: "top-right",
-                        animationIn: ["animated", "flipInX"],
-                        animationOut: ["animated", "flipOutX"],
-                        dismiss: {
+                        description: "Firebase API Error! Poll Not Created",
+                        status: "error",
                         duration: 5000,
-                        onScreen: true,
-                        showIcon: true
-                        },
-                    });
+                        isClosable: true
+                    })
                 }
             }, 
             function(error){
                 setLoading(false);
-                store.addNotification({
+                toast({
                     title: "Error",
-                    message: "Location Access Unavalible or Denied!",
-                    type: "danger",
-                    insert: "bottom",
-                    isMobile: true,
-                    container: "top-right",
-                    animationIn: ["animated", "flipInX"],
-                    animationOut: ["animated", "flipOutX"],
-                    dismiss: {
+                    description: "Location Data in-accessible or denied",
+                    status: "error",
                     duration: 5000,
-                    onScreen: true,
-                    showIcon: true
-                    },
-                });
+                    isClosable: true
+                })
         
             })
         }
@@ -159,11 +134,11 @@ export default function Create() {
                         <br/>
                     </>
                 )}
-                <br/><br/>
+                
 
                 <Checkbox value = {multiple} onChange = {() => setMultiple(!multiple)}>Choose Multiple?</Checkbox><br/><br/>
 
-                <Button colorScheme="red"  onClick = {addChoice} disabled = {loading}>Add Choice</Button> &nbsp;
+                <Button colorScheme="green"  onClick = {addChoice} disabled = {loading}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>
             </Container>
 
