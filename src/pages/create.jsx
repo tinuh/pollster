@@ -74,6 +74,7 @@ export default function Create() {
     let submit = async() =>{
         setLoading(true);
         let values = form;
+        values.type = type;
         if (values.name === "" || values.description === "" || values.question === ""){
             toast({
                 title: "Error",
@@ -107,7 +108,6 @@ export default function Create() {
             setLoading(false);
             return undefined;
         }
-        values.type = type;
         if (type !== 'text'){
             values.choices = [...answers];
             values.selectMultiple = multiple;

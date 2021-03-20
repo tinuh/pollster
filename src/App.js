@@ -56,7 +56,7 @@ function App() {
                       <Route path = "/logout" component = {Logout}/>
 
                       {/* Change to /dynamic by a poll id */}
-                      <Route path = "/poll/:uid" component = {PollResults}/>
+                      <Route path = "/poll/:id" component = {PollResults}/>
 
                       {/* NOT FOUND */}
                       <Route component = {NotFound}/>
