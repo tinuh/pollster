@@ -11,7 +11,7 @@ import {
 
 import Poll from '../components/poll';
 import Pollpopup from '../components/pollPopup';
-import { getCol, getUserRef } from '../lib/db.js';
+import { getCol, getUserFromRef } from '../lib/db.js';
 
 /* const containerStyle = {
     width: '100%',
@@ -63,6 +63,10 @@ export default function Discover(){
         setShowPopup(true);
     }
 
+    async function getMarkerLogo(authorRef) {
+        const authorDoc = await getUserFromRef(authorRef)
+        return authorDoc.logo;
+    }
 
     if (markers){
         return (
@@ -77,7 +81,7 @@ export default function Discover(){
                         {
                             markers.map(marker => 
                                 <Overlay anchor={[marker.location._lat, marker.location._long]} offset={[10, 40]}>
-                                    <img src={async()=>await getUserRef(marker.author)} payload={marker} width={20} height={20} onClick={({ payload }) => handleClick(payload)} alt='' />
+                                    <img src={getMarkerLogo(marker.author)} payload={marker} width={20} height={20} onClick={({ payload }) => handleClick(payload)} alt='' />
                                 </Overlay>
                             )
                         }

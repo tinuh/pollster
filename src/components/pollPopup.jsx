@@ -21,6 +21,7 @@ import {
     CheckboxGroup, 
     Button,
     Input,
+    Text,
 } from "@chakra-ui/react";
 
 export default function PollPopup(props){
@@ -65,10 +66,13 @@ export default function PollPopup(props){
         <Modal isOpen={open} onClose={handleClose}>
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader>{props.data.question}</ModalHeader>
+            <ModalHeader>
+                {props.data.question}
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 {/*props.data.form*/}
+                <Text mb={4}>{props.data.description}</Text>
                 <FormControl as="fieldset">
                     {type === 'multipleChoice' ?
                         checkboxes ? 
@@ -98,7 +102,7 @@ export default function PollPopup(props){
                         Submit
                     </Button>
                     { canViewPollResults && <Link to={`poll/${props.data.id}`} ><Button colorScheme="red" mr={3} onClick={handleClose}>
-                        View Poll results
+                        View Poll Results
                     </Button></Link>}
                 </ModalFooter>
             </ModalContent>
