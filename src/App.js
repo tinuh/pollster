@@ -26,6 +26,7 @@ import Contact from "./pages/contact";
 import PollResults from './pages/pollResults';
 import Discover from './pages/discover';
 import Homepage from './pages/homePage';
+import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
 function App() {
   const { user, loadingUser } = useAuth();
@@ -33,28 +34,38 @@ function App() {
   return (
         <Router>
           <Box minH="100vh">
-            <Navbar/>
-            <Switch>
-              
-              <Route exact path = "/" component = {(user && !loadingUser)?Dashboard:Homepage}/>
-              <Route path = "/discover" component = {Discover}/>
-              <Route path = "/create" component = {Create}/>
-              <Route exact path = "/profile" component = {Profile}/>
-              <Route path = "/contact" component = {Contact}/>
-              <Route path = "/reportissue" component = {ReportIssue}/>
+          <Navbar/>
+            <div className = "actual-content">
+              <Route render={({ location }) => (
 
-              {/* AUTH */}
-              <Route path = "/login" component = {Login}/>
-              <Route path = "/register" component = {Register}/>
-              <Route path = "/logout" component = {Logout}/>
+                <TransitionGroup>
+                  <CSSTransition key={location.pathname} timeout={300} classNames = 'fade' >
+                    <Switch location = {location}>
+                      
+                      <Route exact path = "/" component = {(user && !loadingUser)?Dashboard:Homepage}/>
+                      <Route path = "/discover" component = {Discover}/>
+                      <Route path = "/create" component = {Create}/>
+                      <Route exact path = "/profile" component = {Profile}/>
+                      <Route path = "/contact" component = {Contact}/>
+                      <Route path = "/reportissue" component = {ReportIssue}/>
 
-              {/* Change to /dynamic by a poll id */}
-              <Route path = "/pollresults" component = {PollResults}/>
+                      {/* AUTH */}
+                      <Route path = "/login" component = {Login}/>
+                      <Route path = "/register" component = {Register}/>
+                      <Route path = "/logout" component = {Logout}/>
 
-              {/* NOT FOUND */}
-              <Route component = {NotFound}/>
-              
-            </Switch>
+                      {/* Change to /dynamic by a poll id */}
+                      <Route path = "/pollresults" component = {PollResults}/>
+
+                      {/* NOT FOUND */}
+                      <Route component = {NotFound}/>
+                      
+                    </Switch>
+                  </CSSTransition>
+                </TransitionGroup>
+
+              )} />
+            </div>  
           </Box>
           <Footer/>
         </Router>
