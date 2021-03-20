@@ -8,8 +8,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./lib/theme";
 
 // Components
-import Navbar from '../components/navbar';
-import Footer from '../components/footer';
+import Navbar from './components/navbar';
+import Footer from './components/footer';
 
 // Pages
 import Dashboard from "./pages/dashboard";
