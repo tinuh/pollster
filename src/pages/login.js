@@ -32,7 +32,7 @@ export default function LoginPage() {
     await firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(function() {
+    .then(() => {
       window.location.href = '/dashboard';
     })
     .catch(function(err) {
@@ -42,7 +42,10 @@ export default function LoginPage() {
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithRedirect(provider);
+    await firebase.auth().signInWithRedirect(provider)
+    .then(() => {
+      // TODO: add user doc
+    });
   }
 
   if (!loadingUser && !user) return (
@@ -52,7 +55,7 @@ export default function LoginPage() {
           <Heading as="h2" size="xl">Login</Heading>
           <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"/>
           <Input  value={password} onChange={e => setPassword(e.target.value)} type='password' placeholder="Password"/>
-          {message !== '' ? <Text color="red">{message}</Text> : null}
+          {message !== '' && <Text color="red">{message}</Text>}
           <Button colorScheme="blue" onClick={signIn} type="submit">Submit</Button>
 
           <Text align="center">Don't have an account? <Link href="/register" color="brand.500">Register</Link></Text>
