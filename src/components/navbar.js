@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link as RLink} from 'react-router-dom';
 
 import {
   Box,
@@ -47,9 +46,10 @@ export default function NavbarComponent() {
           direction={["column", "row", "row", "row"]}
           pt={[4, 4, 0, 0]}
         >
-          <RLink to = "/"><MenuItem to="#">{(user && !loadingUser) ? "Dashboard" : "Home"}</MenuItem></RLink>
-          <RLink to = "/discover"><MenuItem to="#">Discover</MenuItem></RLink>
-          {(user && !loadingUser) && <><RLink to = "/create"><MenuItem to="#">Create</MenuItem></RLink><RLink to = "/profile"><MenuItem to="#">Profile</MenuItem></RLink></>}
+          <MenuItem to="/">{(user && !loadingUser) ? "Dashboard" : "Home"}</MenuItem>
+          <MenuItem to="/discover">Discover</MenuItem>
+          {(user && !loadingUser) && <MenuItem to="/create">Create</MenuItem>}
+          {(user && !loadingUser) && <MenuItem to="/profile">Profile</MenuItem>}
           <MenuItem to={user && !loadingUser ? "/logout" : "/login"} type="button">
             {user && !loadingUser ? "Logout" : "Login/Register"}
           </MenuItem>
@@ -62,9 +62,9 @@ export default function NavbarComponent() {
 function Logo() {
   return (
     <Box>
-      <RLink to = "/">
+      <Link href="/">
         <Heading as="h1" size="xl">Pollster</Heading>
-      </RLink>
+      </Link>
     </Box>
   );
 }

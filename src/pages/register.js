@@ -25,10 +25,6 @@ export default function RegisterPage() {
   const [password2, setPassword2] = React.useState("");
   const [message, setMessage] = React.useState("");
 
-  React.useEffect(() => {
-    if (user && !loadingUser) window.location.href = '/dashboard';
-  }, [user, loadingUser]);
-
   async function signUp() {
     if (password !== password2) return setMessage('Passwords don\'t match');
     await firebase
@@ -36,7 +32,7 @@ export default function RegisterPage() {
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
       // TODO: add user doc
-      window.location.href = '/dashboard';
+      window.location.href = '/';
     })
     .catch(function(err) {
       setMessage(err.message);
@@ -48,7 +44,11 @@ export default function RegisterPage() {
     await firebase.auth().signInWithRedirect(provider)
     .then(() => {
       // TODO: add user doc
-    });
+      window.location.href = '/';
+    })
+    .catch(function(err) {
+      setMessage(err.message);
+    });;
   }
 
   if (!loadingUser && !user) return (

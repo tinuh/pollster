@@ -1,25 +1,25 @@
 import React from 'react';
+import { Link as RLink } from 'react-router-dom';
 
 import {
-  Link as ChakraLink,
   Tooltip,
 } from '@chakra-ui/react';
 
 export default function Link(props) {
-  const { children, tooltip, noUnderline, ...rest } = props;
+  const { href, children, tooltip, noUnderline, ...rest } = props;
 
   return (
     <>
       {tooltip ? 
         <Tooltip label={tooltip}>
-          <ChakraLink style={ noUnderline ? { textDecoration: "none" } : {}} {...rest}>
+          <RLink to={href} style={ noUnderline ? { textDecoration: "none" } : {}} {...rest}>
             {children}
-          </ChakraLink>
+          </RLink>
         </Tooltip> 
       : 
-        <ChakraLink style={ noUnderline ? { textDecoration: "none" } : {}} {...rest}>
+        <RLink to={href} style={ noUnderline ? { textDecoration: "none" } : {}} {...rest}>
           {children}
-        </ChakraLink>
+        </RLink>
       }
     </>
   )
