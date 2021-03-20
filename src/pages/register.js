@@ -4,7 +4,7 @@ import initFirebase from '../lib/firebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
-import { addDoc, getDoc } from '../lib/db';
+//import { addDoc, getDoc } from '../lib/db';
 
 import { RegisterForm } from "../components/registerForm";
 import { DividerWithText } from '../components/dividerWithText';

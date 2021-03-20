@@ -1,20 +1,25 @@
 import React from 'react';
-import { Map, Marker, Overlay } from 'pigeon-maps'
+import { Map, Marker } from 'pigeon-maps'
 
-import {Box, Heading} from "@chakra-ui/react";
+import {
+    Box, 
+    Heading,
+    SimpleGrid,
+    Container,
+} from "@chakra-ui/react";
 
 import Poll from '../components/poll';
 import Pollpopup from '../components/pollPopup';
 
-const containerStyle = {
+/* const containerStyle = {
     width: '100%',
     height: '50vw'
-};
+}; */
 
-const center = {
+/* const center = {
     lat: -3.745,
     lng: -38.523
-};
+}; */
 
 export default function Discover(){
     
@@ -25,7 +30,6 @@ export default function Discover(){
     return (
         <Box align="center">
             <Heading>Map!</Heading>
-
             {showPopup && <Pollpopup set={setShowPopup} />}
             <Box w="90%" h="50vw" borderWidth="1px" borderRadius="lg" overflow="hidden">
                 <Map defaultCenter={[50.879, 4.6997]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
@@ -35,13 +39,23 @@ export default function Discover(){
                     
                 </Map>
             </Box>
-            <Heading mt="2vw" ml="2vw">Top rated polls near you: </Heading>
-            <Box style={{"display":"inline-flex"}} mb="1vw" mt="1vw">
-                <Poll pollvoting={true} /> <Box ml="1vw"></Box> <Poll pollvoting={true} /> <Box ml="1vw"></Box> <Poll pollvoting={true} /> <Box ml="1vw"></Box> <Poll pollvoting={true} />
-            </Box>
-            <Box style={{"display":"inline-flex"}} mb="5vw">
-                <Poll pollvoting={true} /> <Box ml="1vw"></Box> <Poll pollvoting={true} /> <Box ml="1vw"></Box> <Poll pollvoting={true} /> <Box ml="1vw"></Box> <Poll pollvoting={true} />
-            </Box>
+
+            <Container maxW="container.lg" mt={12}>
+                <Heading>Top rated polls near you: </Heading>
+                <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                    <Poll pollvoting={true}/>
+                </SimpleGrid>
+            </Container>
         </Box>
     )
 }

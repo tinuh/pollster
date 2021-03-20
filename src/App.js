@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { useAuth } from './lib/auth';
+//import { useAuth } from './lib/auth';
 import { Box } from "@chakra-ui/react";
 import "./styles/App.css";
 import ReactNotification from 'react-notifications-component'
@@ -29,7 +29,7 @@ import PollResults from './pages/pollresults';
 import Discover from './pages/discover';
 
 function App() {
-  const { user, loadingUser } = useAuth();
+  //const { user, loadingUser } = useAuth();
 
   return (
         <Router>

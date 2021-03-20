@@ -1,15 +1,26 @@
 import React from 'react';
-import { Box } from "@chakra-ui/react";
-import { Heading } from "@chakra-ui/react";
-import { Avatar } from "@chakra-ui/react"
-import { Grid, GridItem } from "@chakra-ui/react";
-import { Textarea } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react"
-import { useToast } from "@chakra-ui/react";
 import Poll from "../components/poll";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from "@chakra-ui/react";
-import { Input } from "@chakra-ui/react";
+import { 
+    Container,
+    Box,
+    Flex,
+    Stack,
+    Heading,
+    Avatar,
+    Input,
+    SimpleGrid,
+    Textarea,
+    Text, 
+    Button,
+    useToast,
+    Modal, 
+    ModalOverlay, 
+    ModalContent, 
+    ModalHeader, 
+    ModalFooter, 
+    ModalBody, 
+    ModalCloseButton
+} from "@chakra-ui/react";
 
 export default function Profile(props){
 
@@ -46,7 +57,7 @@ export default function Profile(props){
     }
 
     return (
-        <Box mt="2vw">
+        <Container maxW="container.lg" align="center">
 
             <Modal isOpen={showIconModal} onClose={()=>setShowIconModal(false)}>
                 <ModalOverlay />
@@ -66,43 +77,49 @@ export default function Profile(props){
                 </ModalContent>
             </Modal>
 
-            <Heading ml="34%">Your Profile</Heading>
-            <Grid
-                borderWidth="1px" borderRadius="lg" overflow="hidden"
-                templateRows="repeat(3, 10fr)"
-                templateColumns="repeat(5, 20fr)"
-                gap={1}
-                h="15vw"
-                w="37vw"
-                m="auto"
-                mt="1vw"
-            >
-                <GridItem rowSpan={2} colSpan={2}>
-                    <Avatar size="2xl" src="" mt="2vw" ml="4vw" onClick={()=>setShowIconModal(true)} />
-                </GridItem>
-                <GridItem rowSpan={1} colSpan={3} mt="2vw">
-                    <div style={{"display":"inline-flex"}}>
-                        <Text>Display&nbsp;name: </Text><Textarea value={displayName} ml="2vw" rows="1" disabled={!edit} onChange={(e)=>handleDispChange(e)} />
-                    </div>
-                </GridItem>
-                <GridItem rowSpan={1} colSpan={3}>
-                    <div style={{"display":"inline-flex"}}>
-                        <Text> Description: </Text><Textarea ml="2.8vw" value={desc} rows="3" disabled={!edit} onChange={(e)=>handleDescChange(e)} />
-                    </div>
-                </GridItem>
-                <GridItem colSpan={1}>
-                    <Button colorScheme="blue" ml="4vw" mt="1vw" onClick={()=>setEdit(true)}>Edit</Button>
-                </GridItem>
-                <GridItem colSpan={3}></GridItem>
-                <GridItem colSpan={1}>
-                    <Button colorScheme="blue" mt="1vw"  onClick={saveData}>Save</Button>
-                </GridItem>
-            </Grid>
-            <Text ml="32%" mt="2vw"><b>Your polls:</b></Text>
-            <Box ml="31vw" mt=".5vw" w="37vw" style={{"overflowX":"scroll", "whiteSpace": "nowrap", "display":"inline-flex"}}>
-                {/*I used the boxes here for margins*/}
-                <Poll /><Box ml="1vw"></Box><Poll /><Box ml="1vw"></Box><Poll />
-            </Box>
-        </Box>
+            <Heading align="center" m={12}>Your Profile</Heading>
+            <Container maxW='container.sm'>
+                <Stack p={4} borderWidth="1px" borderRadius="lg" overflow="hidden">
+                    <Flex justify>
+                        <Box p={4}>
+                            <Avatar size="xl" src="" onClick={()=>setShowIconModal(true)} />
+                        </Box>
+                        <Stack flex={1} m={4}>
+                            <Stack direction={{ base: "column", md: "row" }}>
+                                <Box w={{ base: "100%", md: "50%" }} m={2}>
+                                    <Text align="left">Display name</Text>
+                                </Box>
+                                <Input value={displayName} disabled={!edit} onChange={(e)=>handleDispChange(e)} />
+                            </Stack>
+                            <Stack direction={{ base: "column", md: "row" }}>
+                                <Box w={{ base: "100%", md: "50%" }} m={2}>
+                                    <Text align="left">Description</Text>
+                                </Box>
+                                <Textarea value={desc} rows="3" disabled={!edit} onChange={(e)=>handleDescChange(e)} />
+                            </Stack>
+                        </Stack>
+                    </Flex>
+                    <Flex justify="space-between">
+                        <Button colorScheme="blue" onClick={()=>setEdit(true)}>Edit</Button>
+                        <Button colorScheme="blue" onClick={saveData}>Save</Button>
+                    </Flex>
+                </Stack>
+            </Container>
+
+            <Heading size="lg" mt={12} align="center" fontWeight="bold">Your Polls</Heading>
+
+            <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
+                <Poll/>
+                <Poll/>
+                <Poll/>
+                <Poll/>
+                <Poll/>
+                <Poll/>
+                <Poll/>
+                <Poll/>
+                <Poll/>
+                <Poll/>
+            </SimpleGrid>
+        </Container>
     )
 }

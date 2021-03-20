@@ -5,26 +5,29 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {Heading, Box} from "@chakra-ui/react";
 import {addDoc} from "../lib/db";
 import { store } from 'react-notifications-component';
+import firebase from 'firebase/app';
+import { Checkbox } from "@chakra-ui/react";
 
 export default function Create() {
     let [form, setForm] = useState({
-        firstName: "",
+        name: "",
         description: "",
         question: "",
     })
     let [loading, setLoading] = useState(false);
     let [answers, setAnswers] = useState([]);
+    let [multiple, setMultiple] = useState(false);
 
 
     let handleChange = (e, param) => {
-        if (param==="firstName") {
-            setForm({firstName: e.target.value, description: form.description, question: form.question});
+        if (param==="name") {
+            setForm({name: e.target.value, description: form.description, question: form.question});
         }
         else if (param === "description"){
-            setForm({firstName: form.firstName, description: e.target.value, question: form.question})
+            setForm({name: form.name, description: e.target.value, question: form.question})
         }
         else {
-            setForm({firstName: form.firstName, description: form.description, question: e.target.value});
+            setForm({name: form.name, description: form.description, question: e.target.value});
         }
     }
     
@@ -45,15 +48,60 @@ export default function Create() {
         setAnswers([...answers, ""]);
     }
 
-    async function submit(){
+    let submit = async() =>{
         setLoading(true);
         let values = form;
         values.choices = [...answers];
+        values.selectMultiple = multiple;
+        values.type = "multpleChoice";
 
         if (navigator.geolocation) { //check if geolocation is available
-            navigator.geolocation.getCurrentPosition(function(pos){
-                values.position = [pos.coords.latitude, pos.coords.longitude];
+            await navigator.geolocation.getCurrentPosition(function(pos){
+                values.location = new firebase.firestore.GeoPoint(pos.coords.latitude, pos.coords.longitude);
                 
+                try{
+                    console.log(values);
+                    addDoc('polls', values);
+        
+                    store.addNotification({
+                        title: "Success",
+                        message: "Poll Successfully Created!",
+                        type: "success",
+                        insert: "bottom",
+                        isMobile: true,
+                        container: "top-right",
+                        animationIn: ["animated", "flipInX"],
+                        animationOut: ["animated", "flipOutX"],
+                        dismiss: {
+                        duration: 5000,
+                        onScreen: true,
+                        showIcon: true
+                        },
+                    });
+        
+                    setForm({name: "", description: "", question: ""});
+                    setAnswers([]);
+                    //console.log(values);
+        
+                    setLoading(false);
+                }
+                catch (error){
+                    store.addNotification({
+                        title: "Error",
+                        message: "Firebase API Error! Data not submitted",
+                        type: "danger",
+                        insert: "bottom",
+                        isMobile: true,
+                        container: "top-right",
+                        animationIn: ["animated", "flipInX"],
+                        animationOut: ["animated", "flipOutX"],
+                        dismiss: {
+                        duration: 5000,
+                        onScreen: true,
+                        showIcon: true
+                        },
+                    });
+                }
             }, 
             function(error){
                 setLoading(false);
@@ -73,50 +121,8 @@ export default function Create() {
                     },
                 });
         
-            });
+            })
         }
-
-        setForm({firstName: "", description: "", question: ""});
-        setAnswers([]);
-        console.log(values);
-        //firebase API Call
-        try{
-            await addDoc('polls', values);
-
-            store.addNotification({
-                title: "Success",
-                message: "Poll Successfully Created!",
-                type: "success",
-                insert: "bottom",
-                isMobile: true,
-                container: "top-right",
-                animationIn: ["animated", "flipInX"],
-                animationOut: ["animated", "flipOutX"],
-                dismiss: {
-                duration: 5000,
-                onScreen: true,
-                showIcon: true
-                },
-            });
-        }
-        catch (error){
-            store.addNotification({
-                title: "Error",
-                message: "Firebase API Error! Data not submitted",
-                type: "danger",
-                insert: "bottom",
-                isMobile: true,
-                container: "top-right",
-                animationIn: ["animated", "flipInX"],
-                animationOut: ["animated", "flipOutX"],
-                dismiss: {
-                duration: 5000,
-                onScreen: true,
-                showIcon: true
-                },
-            });
-        }
-
     }
 
     return (
@@ -124,9 +130,9 @@ export default function Create() {
             <Container>
                 <Heading as="h1">Create Poll</Heading><br/>
 
-                <FormControl id="Pollname" isRequired>
+                <FormControl id="name" isRequired>
                     <FormLabel>Poll Name</FormLabel>
-                    <Input value = {form.firstName} onChange={(e) => handleChange(e, "firstName")} placeholder="Poll name" />
+                    <Input value = {form.name} onChange={(e) => handleChange(e, "name")} placeholder="Poll name" />
                 </FormControl><br/>
                 <FormControl id="description" isRequired>
                     <FormLabel>Description</FormLabel>
@@ -145,14 +151,19 @@ export default function Create() {
                 {answers.map((answer, index) =>
                     <>
                         <FormControl id={"Choice " + (index + 1)} isRequired>
-                            <FormLabel>{"Choice " + (index + 1)}</FormLabel><FontAwesomeIcon style = {{display:"inline", textAlign: "right", padding: "none"}} className = "deleteIcon" onClick = {() => removeChoice(index)} icon={faTimes}/>
+                            <FormLabel><FontAwesomeIcon style = {{display:"inline", textAlign: "right", padding: "none"}} className = "deleteIcon" onClick = {() => removeChoice(index)} icon={faTimes}/> &nbsp; {"Choice " + (index + 1)}</FormLabel>
+                            
+                            
                             <Input value = {answer} onChange={(e) => handleQuestion(e, index)} placeholder={"Choice " + (index + 1)} />
                         </FormControl>
                         <br/>
                     </>
                 )}
-                <Button colorScheme="red" size = "sm" onClick = {addChoice} disabled = {loading}>Add Choice</Button><br/><br/><br/>
+                <br/><br/>
 
+                <Checkbox value = {multiple} onChange = {() => setMultiple(!multiple)}>Choose Multiple?</Checkbox><br/><br/>
+
+                <Button colorScheme="red"  onClick = {addChoice} disabled = {loading}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>
             </Container>
 
