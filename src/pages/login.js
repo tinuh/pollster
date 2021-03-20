@@ -8,7 +8,6 @@ import { addDoc, getDoc } from '../lib/db';
 
 import { LoginForm } from "../components/loginForm";
 import { DividerWithText } from '../components/dividerWithText';
-//import {PasswordField} from "../components/PasswordField";
 import { FaGoogle } from 'react-icons/fa';
 
 import {
@@ -67,43 +66,43 @@ export default function LoginPage() {
   if (!loadingUser && !user) return (
     <Container maxW="container.sm" p={8}>
       <Box bg={mode('gray.50', 'inherit')} minH="100vh" py="12" px={{ sm: '6', lg: '8' }}>
-      <Box maxW={{ sm: 'md' }} mx={{ sm: 'auto' }} w={{ sm: 'full' }}>
-        <Heading mt="6" textAlign="center" size="xl" fontWeight="extrabold">
-          Log in to your account
-        </Heading>
-        <Text mt="4" align="center" maxW="md" fontWeight="medium">
-          <span>Don&apos;t have an account?</span>
+        <Box maxW={{ sm: 'md' }} mx={{ sm: 'auto' }} w={{ sm: 'full' }}>
+          <Heading mt="6" textAlign="center" size="xl" fontWeight="extrabold">
+            Log in to your account
+          </Heading>
+          <Text mt="4" align="center" maxW="md" fontWeight="medium">
+            <span>Don&apos;t have an account?</span>
+            <Box
+              as="a"
+              marginStart="1"
+              href="#"
+              color={mode('blue.600', 'blue.200')}
+              _hover={{ color: 'blue.600' }}
+              display={{ base: 'block', sm: 'revert' }}
+            >
+              <Link href="/register" color="brand.500">Register</Link>
+            </Box>
+          </Text>
+        </Box>
+        <Box maxW={{ sm: 'md' }} mx={{ sm: 'auto' }} mt="8" w={{ sm: 'full' }}>
           <Box
-            as="a"
-            marginStart="1"
-            href="#"
-            color={mode('blue.600', 'blue.200')}
-            _hover={{ color: 'blue.600' }}
-            display={{ base: 'block', sm: 'revert' }}
+            bg={mode('white', 'gray.700')}
+            py="8"
+            px={{ base: '4', md: '10' }}
+            shadow="base"
+            rounded={{ sm: 'lg' }}
           >
-            <Link href="/register" color="brand.500">Register</Link>
+            <LoginForm email = {email} setEmail = {setEmail} signIn = {signIn} message = {message} password = {password} setPassword = {setPassword}/>
+            <DividerWithText mt="6">or continue with</DividerWithText>
+            <SimpleGrid mt="6" columns={1} spacing="3">
+              <Button onClick={signInWithGoogle} color="currentColor" variant="outline">
+                <VisuallyHidden>Sign in with Google</VisuallyHidden>
+                <FaGoogle/>
+              </Button>
+            </SimpleGrid>
           </Box>
-        </Text>
-      </Box>
-      <Box maxW={{ sm: 'md' }} mx={{ sm: 'auto' }} mt="8" w={{ sm: 'full' }}>
-        <Box
-          bg={mode('white', 'gray.700')}
-          py="8"
-          px={{ base: '4', md: '10' }}
-          shadow="base"
-          rounded={{ sm: 'lg' }}
-        >
-          <LoginForm signInMethod = {signIn} email = {email} setEmail = {setEmail} signIn = {signIn} message = {message} password = {password} setPassword = {setPassword}/>
-          <DividerWithText mt="6">or continue with</DividerWithText>
-          <SimpleGrid mt="6" columns={1} spacing="3">
-            <Button onClick={signInWithGoogle} color="currentColor" variant="outline">
-              <VisuallyHidden>Login with Google</VisuallyHidden>
-              <FaGoogle/>
-            </Button>
-          </SimpleGrid>
         </Box>
       </Box>
-    </Box>
     </Container>
   );
   
