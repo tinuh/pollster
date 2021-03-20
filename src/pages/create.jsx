@@ -8,9 +8,18 @@ export default function Create() {
         firstName: "",
         description: ""
     })
+    let [loading, setLoading] = React.useState(false);
 
     let handleChange = (e, param) => {
         param === "firstName" ? setForm({firstName: e.target.value, description: form.description}) : setForm({firstName: form.firstName, description: e.target.value})
+    }
+
+    let submit = () => {
+        setLoading(true);
+        let values = form;
+        setForm({firstName: "", description: ""});
+
+        //Put firebase API Call
     }
 
     return (
@@ -32,7 +41,7 @@ export default function Create() {
                     />
                 </FormControl><br/>
 
-                <Button colorScheme="blue">Submit</Button><br/><br/>
+                <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>
             </Container>
 
         </Box>
