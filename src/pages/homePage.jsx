@@ -35,7 +35,7 @@ export default function homePage(){
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={12}>
                 <Box>
                     <Center>
-                        <Image m={4} src='/hompagesvg/create.svg' alt="create" h={48}/>
+                        <Image m={4} src='/images/create.svg' alt="create" h={48}/>
                     </Center>
                     <Heading as="h3" size="lg" my={2}>For everyone, and anyone.</Heading>
                     <Text fontSize="lg">
@@ -44,7 +44,7 @@ export default function homePage(){
                 </Box>
                 <Box>
                     <Center>
-                        <Image m={4} src='/hompagesvg/options.svg' alt="create" h={48}/>
+                        <Image m={4} src='/images/options.svg' alt="create" h={48}/>
                     </Center>
                     <Heading as="h3" size="lg" my={2}>Customized and relevant.</Heading>
                     <Text fontSize="lg">
@@ -53,7 +53,7 @@ export default function homePage(){
                 </Box>
                 <Box>
                     <Center>
-                        <Image m={4} src='/hompagesvg/map.svg' alt="create" h={48}/>
+                        <Image m={4} src='/images/map.svg' alt="create" h={48}/>
                     </Center>
                     <Heading as="h3" size="lg" my={2}>Built with community values in mind.</Heading>
                     <Text fontSize="lg">
@@ -62,7 +62,7 @@ export default function homePage(){
                 </Box>
                 <Box>
                     <Center>
-                        <Image m={4} src='/hompagesvg/pwa.svg' alt="create" h={48}/>
+                        <Image m={4} src='/images/pwa.svg' alt="create" h={48}/>
                     </Center>
                     <Heading as="h3" size="lg" my={2}>Use Pollster anywhere!</Heading>
                     <Text fontSize="lg">
