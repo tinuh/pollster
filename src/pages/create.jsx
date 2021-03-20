@@ -115,7 +115,7 @@ export default function Create() {
 
         if (navigator.geolocation) { //check if geolocation is available
             await navigator.geolocation.getCurrentPosition(async function(pos){
-                values.location = new firebase.firestore.GeoPoint(pos.coords.latitude+Math.random()*0.0003, pos.coords.longitude+Math.random()*0.0003);
+                values.location = new firebase.firestore.GeoPoint(pos.coords.latitude+Math.random()*0.001, pos.coords.longitude+Math.random()*0.001);
                 values.author = await getUserRef(user.uid);
 
                 try{
