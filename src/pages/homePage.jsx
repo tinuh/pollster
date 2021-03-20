@@ -11,7 +11,7 @@ import {
     Center,
     Link as ChakraLink,
 } from '@chakra-ui/react';
-import { DownloadIcon } from '@chakra-ui/icons';
+//import { DownloadIcon } from '@chakra-ui/icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
