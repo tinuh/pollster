@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -36,7 +36,7 @@ function App() {
               <Route path = "/register" component = {Register}/>
               <Route path = "/logout" component = {Logout}/>
 
-              //Put restricted Routes Here
+              {/*Put restricted Routes Here in this format*/}
               {(user && !loadingUser) && (<Route path = "/create" component = {Create}/>)}
               {(user && !loadingUser) && (<Route path = "/profile" component = {Profile}/>)}
               

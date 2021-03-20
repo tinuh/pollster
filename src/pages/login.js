@@ -25,7 +25,7 @@ export default function LoginPage() {
   const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
-    if (user && !loadingUser) window.location.href = '/dashboard';
+    if (user && !loadingUser) window.location.href = '/';
   }, [user, loadingUser]);
 
   async function signIn() {
@@ -33,7 +33,7 @@ export default function LoginPage() {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
-      window.location.href = '/dashboard';
+      window.location.href = '/';
     })
     .catch(function(err) {
       setMessage(err.message);
