@@ -74,6 +74,39 @@ export default function Create() {
     let submit = async() =>{
         setLoading(true);
         let values = form;
+        if (values.name === "" || values.description === "" || values.question === ""){
+            toast({
+                title: "Error",
+                description: "Please fill out all fields of the form",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            setLoading(false);
+            return undefined;
+        }
+        if (values.type !== "text" && answers.length < 2){
+            toast({
+                title: "Error",
+                description: "Please add more answers",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            setLoading(false);
+            return undefined;
+        }
+        else if (values.type !== "text" && answers.length > 8){
+            toast({
+                title: "Error",
+                description: "Max: 8 Answers per poll",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            setLoading(false);
+            return undefined;
+        }
         values.type = type;
         if (type !== 'text'){
             values.choices = [...answers];
