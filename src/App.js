@@ -19,7 +19,7 @@ import Create from "./pages/create";
 import Profile from "./pages/profilepage";
 import NotFound from "./components/NotFound";
 import { useAuth } from './lib/auth';
-import {Box} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 function App() {
   const { user, loadingUser } = useAuth();
@@ -30,19 +30,19 @@ function App() {
             <Navbar/>
             <Switch>
               
-              {/*Put Unrestricted Routes Here*/}
+              {/* UNRESTRICTED ROUTES */}
               <Route exact path = "/" component = {Dashboard}/>
-              <Route path = "/login" component = {Login}/>
-              <Route path = "/register" component = {Register}/>
               <Route path = "/logout" component = {Logout}/>
 
-              {/*Put restricted Routes Here in this format*/}
+              {/* RESTRICTED ROUTES */}
               {(user && !loadingUser) && (<Route path = "/create" component = {Create}/>)}
               {(user && !loadingUser) && (<Route path = "/profile" component = {Profile}/>)}
-              
+              {(!user && !loadingUser) && (<Route path = "/login" component = {Login}/>)}
+              {(!user && !loadingUser) && (<Route path = "/register" component = {Register}/>)}
 
-
+              {/* NOT FOUND */}
               <Route component = {NotFound}/>
+              
             </Switch>
           </Box>
           <Footer/>

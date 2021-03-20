@@ -24,10 +24,6 @@ export default function LoginPage() {
   const [password, setPassword] = React.useState("");
   const [message, setMessage] = React.useState("");
 
-  React.useEffect(() => {
-    if (user && !loadingUser) window.location.href = '/';
-  }, [user, loadingUser]);
-
   async function signIn() {
     await firebase
     .auth()
@@ -45,7 +41,11 @@ export default function LoginPage() {
     await firebase.auth().signInWithRedirect(provider)
     .then(() => {
       // TODO: add user doc
-    });
+      window.location.href = '/';
+    })
+    .catch(function(err) {
+      setMessage(err.message);
+    });;
   }
 
   if (!loadingUser && !user) return (
