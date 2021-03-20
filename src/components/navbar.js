@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RLink } from 'react-router-dom';
 
 import {
   Box,
@@ -11,8 +12,6 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useAuth } from '../lib/auth';
-
-import Link from './link';
 
 export default function NavbarComponent() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -62,9 +61,9 @@ export default function NavbarComponent() {
 function Logo() {
   return (
     <Box>
-      <Link href="/">
+      <RLink to="/">
         <Heading as="h1" size="xl">Pollster</Heading>
-      </Link>
+      </RLink>
     </Box>
   );
 }
@@ -82,7 +81,7 @@ function Toggle(props) {
 }
 
 function MenuItem(props) {
-  const { children, to = "/", tooltip, type, ...rest } = props;
+  const { to, children, type, ...rest } = props;
   
   const bgDesktop = useColorModeValue("brand.50", "brand.900");
   const bgHoverDesktop = useColorModeValue("brand.100", "brand.800");
@@ -90,7 +89,7 @@ function MenuItem(props) {
   // Button menu item
   if (type === 'button') {
     return (
-      <Link href={to} tooltip={tooltip} noUnderline>
+      <RLink to={to}>
         <Button 
           size="sm"
           bg={["brand.400", "brand.400", bgDesktop, bgDesktop]}
@@ -100,15 +99,15 @@ function MenuItem(props) {
         >
           {children}
         </Button>
-      </Link>
+      </RLink>
     );
   }
   
   return (
-    <Link href={to} tooltip={tooltip} noUnderline>
+    <RLink to={to}>
       <Text display="block" {...rest}>
         {children}
       </Text>
-    </Link>
+    </RLink>
   );
 }
