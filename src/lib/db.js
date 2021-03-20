@@ -51,6 +51,16 @@ export const getDoc = async (colName, docId) => {
   }
 }
 
+// Fetches a document from a subcollection
+export const getSubDoc = async (colName, docId, subColName, subDocId) => {
+  const doc = await db.collection(colName).doc(docId).collection(subColName).doc(subDocId);
+  if (doc.exists) {
+    return { ...doc.data(), id: docId };
+  } else {
+    return null;
+  }
+}
+
 // Fetches all documents from a collection
 export const getCol = async (colName) => {
   const snapshot = await db.collection(colName).get();
