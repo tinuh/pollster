@@ -56,7 +56,7 @@ export default function Poll(props){
                 mr={0}
                 mb={0}
                 >    
-                <GridItem rowSpan={2} colSpan={1} ml="2vw" mt="1vw">
+                <GridItem rowSpan={2} colSpan={1} ml="2vw" mt=".7vw">
                     <ChevronUpIcon onClick={upVote} color={hasVoted==="up" && "green"} /> <Text>{votes}{/*props.upvotes*/}</Text> <ChevronDownIcon onClick={downVote} color={hasVoted==="down" && "red"} />
                 </GridItem>
                 <GridItem colSpan={4} mt="1.1vw">
