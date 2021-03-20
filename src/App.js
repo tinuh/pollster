@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-//import { useAuth } from './lib/auth';
+import { useAuth } from './lib/auth';
 import { Box } from "@chakra-ui/react";
 import "./styles/App.css";
 import 'animate.css/animate.compat.css'
@@ -28,7 +28,7 @@ import Discover from './pages/discover';
 import Homepage from './pages/homePage';
 
 function App() {
-  //const { user, loadingUser } = useAuth();
+  const { user, loadingUser } = useAuth();
 
   return (
         <Router>
