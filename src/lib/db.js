@@ -19,3 +19,15 @@ export const addDoc = async (colName, docData, docId) => {
   }
   return newDocRef;
 }
+
+// Fetches a document from a collection
+export const getDoc = async (colName, docId) => {
+  await db.collection(colName).doc(docId).get()
+  .then(doc => {
+    if (doc.exists) {
+      return { ...doc.data(), id: docId };
+    } else {
+      return null;
+    }
+  });
+}

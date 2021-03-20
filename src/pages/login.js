@@ -29,9 +29,7 @@ export default function LoginPage() {
   }, [user, loadingUser]);
 
   async function signIn() {
-    await firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
+    await firebase.auth().signInWithEmailAndPassword(email, password)
     .then(() => {
       window.location.href = '/';
     })
@@ -42,9 +40,10 @@ export default function LoginPage() {
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithRedirect(provider)
-    .then(() => {
+    await firebase.auth().signInWithPopup(provider)
+    .then((u) => {
       // TODO: add user doc
+      //u.user.uid
       window.location.href = '/';
     })
     .catch(function(err) {
