@@ -6,8 +6,8 @@ export default function Pollpopup(props){
 
     const [ open, setOpen ] = React.useState(true);
     const canViewPollResults = true; //get from db somehow
-    const [formOptions, setForm] = React.useState([{'name':'option1', 'selected':false}, {'name':'option2', 'selected':false}, {'name':'option3', 'selected':false}, {'name':'option4', 'selected':false}]);
-    const checkboxes = true;
+    const [formOptions, setForm] = React.useState(props.data.choices.map(choice=>({'name':choice, 'selected':false})));
+    const checkboxes = props.data.selectMultiple;
 
     function handleClose(){
         props.set(false);
@@ -33,7 +33,7 @@ export default function Pollpopup(props){
         <Modal isOpen={open} onClose={handleClose}>
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader>Example Form Name{/*props.data.pollname*/}</ModalHeader>
+            <ModalHeader>{props.data.question}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 {/*props.data.form*/}
