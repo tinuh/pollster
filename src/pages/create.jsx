@@ -3,14 +3,20 @@ import {FormControl, FormLabel, Input, Textarea, Container, Button } from "@chak
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {Heading, Box} from "@chakra-ui/react";
-import {addDoc} from "../lib/db";
-import firebase from 'firebase/app';
 import { Checkbox, useToast } from "@chakra-ui/react";
-import {useAuth} from '../lib/auth';
+
+import initFirebase from '../lib/firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { useAuth } from '../lib/auth';
+import { addDoc, getDoc, getUserRef } from '../lib/db';
 
 export default function Create() {
+    initFirebase();
     const { user, loadingUser } = useAuth();
+
     const toast = useToast();
+
     let [form, setForm] = useState({
         name: "",
         description: "",
@@ -19,6 +25,20 @@ export default function Create() {
     let [loading, setLoading] = useState(false);
     let [answers, setAnswers] = useState([]);
     let [multiple, setMultiple] = useState(false);
+
+    React.useEffect(async () => {
+        if (!user && !loadingUser) return window.location.href = '/login';
+        if (!user) return;
+
+        const userData = await getDoc('users', user.uid);
+        if (!userData) {
+            await addDoc('users', {
+                displayName: "",
+                description: "",
+                logo: ""
+            }, user.uid);
+        }
+    }, [user, loadingUser]);
 
     let handleChange = (e, param) => {
         if (param==="name") {
@@ -57,12 +77,14 @@ export default function Create() {
         values.type = "multpleChoice";
 
         if (navigator.geolocation) { //check if geolocation is available
-            await navigator.geolocation.getCurrentPosition(function(pos){
+            await navigator.geolocation.getCurrentPosition(async function(pos){
                 values.location = new firebase.firestore.GeoPoint(pos.coords.latitude, pos.coords.longitude);
                 
+                values.author = await getUserRef(user.uid);
+
                 try{
                     console.log(values);
-                    addDoc('polls', values);
+                    await addDoc('polls', values);
                     
                     toast({
                         title: "Created",

@@ -29,3 +29,8 @@ export const getDoc = async (colName, docId) => {
     return null;
   }
 }
+
+export const getUserRef = async (userId) => {
+  const userRef = await db.collection("users").doc(userId);
+  return userRef;
+}
