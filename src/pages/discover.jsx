@@ -1,6 +1,10 @@
 import React from 'react';
 import { GoogleMap, Marker } from "react-google-maps"
 
+import {Box, Heading} from "@chakra-ui/react";
+
+import Poll from '../components/poll';
+
 export default function Discover(){
     
     return (

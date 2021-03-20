@@ -25,6 +25,7 @@ import Profile from "./pages/profilepage";
 import NotFound from "./components/NotFound";
 import Contact from "./pages/contact";
 import PollResults from './pages/pollresults';
+import Discover from './pages/discover';
 
 function App() {
   const { user, loadingUser } = useAuth();
@@ -37,6 +38,7 @@ function App() {
             <Switch>
               
               <Route exact path = "/" component = {Dashboard}/>
+              <Route path = "/discover" component = {Discover}/>
               <Route path = "/contact" component = {Contact}/>
               <Route path = "/create" component = {Create}/>
               <Route path = "/profile" component = {Profile}/>
