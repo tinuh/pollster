@@ -100,6 +100,7 @@ export default function Profile(props){
             </Grid>
             <Text ml="32%" mt="2vw"><b>Your polls:</b></Text>
             <Box ml="31vw" mt=".5vw" w="37vw" style={{"overflowX":"scroll", "whiteSpace": "nowrap", "display":"inline-flex"}}>
+                {/*I used the boxes here for margins*/}
                 <Poll /><Box ml="1vw"></Box><Poll /><Box ml="1vw"></Box><Poll />
             </Box>
         </Box>
