@@ -36,19 +36,18 @@ function App() {
             <ReactNotification/>
             <Switch>
               
-              {/* UNRESTRICTED ROUTES */}
               <Route exact path = "/" component = {Dashboard}/>
-              <Route path = "/logout" component = {Logout}/>
               <Route path = "/contact" component = {Contact}/>
+              <Route path = "/create" component = {Create}/>
+              <Route path = "/profile" component = {Profile}/>
+
+              {/* AUTH */}
+              <Route path = "/login" component = {Login}/>
+              <Route path = "/register" component = {Register}/>
+              <Route path = "/logout" component = {Logout}/>
 
               {/* Change to /dynamic by a poll id */}
               <Route path = "/pollresults" component = {PollResults}/>
-
-              {/* RESTRICTED ROUTES */}
-              {(user && !loadingUser) && (<Route path = "/create" component = {Create}/>)}
-              {(user && !loadingUser) && (<Route path = "/profile" component = {Profile}/>)}
-              {(!user && !loadingUser) && (<Route path = "/login" component = {Login}/>)}
-              {(!user && !loadingUser) && (<Route path = "/register" component = {Register}/>)}
 
               {/* NOT FOUND */}
               <Route component = {NotFound}/>

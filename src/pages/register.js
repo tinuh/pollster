@@ -4,6 +4,7 @@ import initFirebase from '../lib/firebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
+import { addDoc, getDoc } from '../lib/db';
 
 import {
   Container,
@@ -32,9 +33,7 @@ export default function RegisterPage() {
   async function signUp() {
     if (password !== password2) return setMessage('Passwords don\'t match');
     await firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((u) => {
-      // TODO: add user doc
-      //u.user.uid
+    .then((u) => { // u.user.uid
       window.location.href = '/';
     })
     .catch(function(err) {
@@ -45,9 +44,7 @@ export default function RegisterPage() {
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     await firebase.auth().signInWithRedirect(provider)
-    .then((u) => {
-      // TODO: add user doc
-      //u.user.uid
+    .then((u) => { // u.user.uid
       window.location.href = '/';
     })
     .catch(function(err) {
