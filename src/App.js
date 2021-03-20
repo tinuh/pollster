@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./lib/theme";
