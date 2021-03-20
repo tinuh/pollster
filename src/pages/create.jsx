@@ -15,6 +15,8 @@ export default function Create() {
     initFirebase();
     const { user, loadingUser } = useAuth();
 
+    const toast = useToast();
+
     let [form, setForm] = useState({
         name: "",
         description: "",
@@ -23,7 +25,6 @@ export default function Create() {
     let [loading, setLoading] = useState(false);
     let [answers, setAnswers] = useState([]);
     let [multiple, setMultiple] = useState(false);
-    const toast = useToast();
 
     React.useEffect(async () => {
         if (!user && !loadingUser) return window.location.href = '/login';

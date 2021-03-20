@@ -4,10 +4,9 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-//import { useAuth } from './lib/auth';
+import { useAuth } from './lib/auth';
 import { Box } from "@chakra-ui/react";
 import "./styles/App.css";
-import 'react-notifications-component/dist/theme.css'
 import 'animate.css/animate.compat.css'
 
 // Components
@@ -26,9 +25,10 @@ import ReportIssue from "./pages/reportIssue";
 import Contact from "./pages/contact";
 import PollResults from './pages/pollResults';
 import Discover from './pages/discover';
+import Homepage from './pages/homePage';
 
 function App() {
-  //const { user, loadingUser } = useAuth();
+  const { user, loadingUser } = useAuth();
 
   return (
         <Router>
@@ -36,7 +36,7 @@ function App() {
             <Navbar/>
             <Switch>
               
-              <Route exact path = "/" component = {Dashboard}/>
+              <Route exact path = "/" component = {(user && !loadingUser)?Dashboard:Homepage}/>
               <Route path = "/discover" component = {Discover}/>
               <Route path = "/create" component = {Create}/>
               <Route exact path = "/profile" component = {Profile}/>
