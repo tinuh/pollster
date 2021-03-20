@@ -31,7 +31,7 @@ export default function Discover(){
 
     React.useEffect(async()=>{
         setMarkers(await getCol("polls"));
-        console.log(markers)
+        //console.log(markers)
 
         /*if (navigator.geolocation) { //check if geolocation is available
             await navigator.geolocation.getCurrentPosition(async function(pos){
@@ -64,9 +64,9 @@ export default function Discover(){
     if (markers){
         return (
             <Box align="center">
-                <Heading>Map!</Heading>
+                <Heading as="h1" m={12}>Discover</Heading>
                 {showPopup && <Pollpopup set={setShowPopup} data={post} />}
-                <Box w="90%" h="50vw" borderWidth="1px" borderRadius="lg" overflow="hidden">
+                <Box w="90%" h="80vh" borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Map defaultCenter={[39.0831315, -77.2049467]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
                         {
                             markers.map(marker => <Marker anchor={[marker.location._lat, marker.location._long]} payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} />)
