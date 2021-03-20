@@ -74,9 +74,11 @@ export default function Create() {
     let submit = async() =>{
         setLoading(true);
         let values = form;
-        values.choices = [...answers];
-        values.selectMultiple = multiple;
         values.type = type;
+        if (type !== 'text'){
+            values.choices = [...answers];
+            values.selectMultiple = multiple;
+        }
 
         if (navigator.geolocation) { //check if geolocation is available
             await navigator.geolocation.getCurrentPosition(async function(pos){
@@ -167,13 +169,15 @@ export default function Create() {
                 )}
                 
                 
-                <Box mb={5}>
-                    <Checkbox 
-                        value = {multiple} 
-                        onChange = {() => setMultiple(!multiple)} 
-                        disabled = {type === "text"}
-                    >Choose Multiple?</Checkbox>
-                </Box>
+                {type !== "text" && (
+                    <Box mb={5}>
+                        <Checkbox 
+                            value = {multiple} 
+                            onChange = {() => setMultiple(!multiple)}>
+                                Choose Multiple?
+                        </Checkbox>
+                    </Box>
+                )}
 
                 <Button colorScheme="green" onClick = {addChoice} disabled = {loading || type === "text"}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>
