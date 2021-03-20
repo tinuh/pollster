@@ -7,7 +7,9 @@ import {
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./lib/theme";
 
+//Components
 import Dashboard from "./pages/dashboard";
+import Create from "./pages/create";
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Router>
           <Switch>
             <Route path = "/" component = {Dashboard}></Route>
+            <Route path = "/create" component = {Create}></Route>
           </Switch>
         </Router>
       </div>
