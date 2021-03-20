@@ -6,6 +6,7 @@ import { Button } from "@chakra-ui/react";
 export default function Pollpopup(props){
 
     const [ open, setOpen ] = React.useState(true);
+    const canViewPollResults = true; //get from db somehow
 
     function handleClose(){
         props.set(false);
@@ -27,6 +28,9 @@ export default function Pollpopup(props){
                     <Button colorScheme="blue" mr={3} onClick={handleClose}>
                         Submit
                     </Button>
+                    { canViewPollResults && <Button colorScheme="red" mr={3} onClick={handleClose}>
+                        View Poll results
+                    </Button>}
                 </ModalFooter>
             </ModalContent>
         </Modal>
