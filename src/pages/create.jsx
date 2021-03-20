@@ -126,7 +126,7 @@ export default function Create() {
     }
 
     return (
-        <Box textAlign="center" className = "content">
+        <Box textAlign="center">
             <Container>
                 <Heading as="h1" m={12}>Create Poll</Heading><br/>
 
@@ -166,8 +166,14 @@ export default function Create() {
                     </>
                 )}
                 
-
-                <Checkbox value = {multiple} onChange = {() => setMultiple(!multiple)}>Choose Multiple?</Checkbox><br/><br/>
+                
+                <Box mb={5}>
+                    <Checkbox 
+                        value = {multiple} 
+                        onChange = {() => setMultiple(!multiple)} 
+                        disabled = {type === "text"}
+                    >Choose Multiple?</Checkbox>
+                </Box>
 
                 <Button colorScheme="green" onClick = {addChoice} disabled = {loading || type === "text"}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>

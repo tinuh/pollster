@@ -45,7 +45,7 @@ export default function Dashboard() {
         <Container maxW="container.lg">
             <Heading as="h1" m={12} align="center">Dashboard</Heading><br/>
 
-            <Heading size="lg" align="center" fontWeight="bold">Your Polls</Heading>
+            <Heading size="lg" align="center" fontWeight="bold">My Polls</Heading>
             <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
                 {polls && polls.map(poll => 
                     <Poll name={poll.name} description={poll.description}/>
