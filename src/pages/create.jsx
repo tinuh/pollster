@@ -9,7 +9,7 @@ import initFirebase from '../lib/firebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
-import { addDoc, getDoc } from '../lib/db';
+import { addDoc, getDoc, getUserRef } from '../lib/db';
 
 export default function Create() {
     initFirebase();
@@ -77,12 +77,14 @@ export default function Create() {
         values.type = "multpleChoice";
 
         if (navigator.geolocation) { //check if geolocation is available
-            await navigator.geolocation.getCurrentPosition(function(pos){
+            await navigator.geolocation.getCurrentPosition(async function(pos){
                 values.location = new firebase.firestore.GeoPoint(pos.coords.latitude, pos.coords.longitude);
                 
+                values.author = await getUserRef(user.uid);
+
                 try{
                     console.log(values);
-                    addDoc('polls', values);
+                    await addDoc('polls', values);
                     
                     toast({
                         title: "Created",
