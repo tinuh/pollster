@@ -19,7 +19,8 @@ import {
     RadioGroup, 
     Checkbox, 
     CheckboxGroup, 
-    Button
+    Button,
+    Input,
 } from "@chakra-ui/react";
 
 export default function PollPopup(props){
@@ -27,8 +28,10 @@ export default function PollPopup(props){
 
     const [ open, setOpen ] = React.useState(true);
     const canViewPollResults = true; // always visible for now
-    const [formOptions, setForm] = React.useState(props.data.choices.map(choice=>({'name':choice, 'selected':false})));
+    const [formOptions, setForm] = React.useState(props.data.choices?.map(choice=>({'name':choice, 'selected':false})));
+    const [inputValue, setInputValue] = React.useState("");
     const checkboxes = props.data.selectMultiple;
+    const type = props.data.type;
 
     function handleClose(){
         props.set(false);
@@ -36,11 +39,10 @@ export default function PollPopup(props){
     }
 
     function handleClick(e){
-        if (checkboxes){
+        if (type === 'multipleChoice' && checkboxes) {
             const changedOption = formOptions.filter(option=>option.name===e.target.value)[0]
             setForm(formOptions.map(option=>({"name":option.name, "selected":option.name===changedOption.name?!changedOption.selected:option.selected})))
-        }
-        else{
+        } else if (type === 'multipleChoice' && !checkboxes) {
             setForm(formOptions.map(option=>({"name":option.name, "selected":option.name===e.target.value?true:false}))) //make them all unclicked
         }
     }
@@ -48,7 +50,7 @@ export default function PollPopup(props){
     async function handleSubmit(){
         handleClose();
         //Send the form options state here, has which options the user picked
-        const answer = formOptions.map(answer => answer.selected);
+        const answer = type === 'multipleChoice' ? formOptions.map(answer => answer.selected) : inputValue;
         const ip = await publicIp.v4({
             fallbackUrls: ['https://ifconfig.co/ip']
         });
@@ -68,18 +70,25 @@ export default function PollPopup(props){
             <ModalBody>
                 {/*props.data.form*/}
                 <FormControl as="fieldset">
-                    {!checkboxes?
-                    <RadioGroup>
-                        <HStack spacing="24px">
-                            {formOptions.map(option=><Radio value={option.name} isChecked={option.selected} onChange={(e)=>handleClick(e)}>{option.name}</Radio>)}
-                        </HStack>
-                    </RadioGroup>
+                    {type === 'multipleChoice' ?
+                        checkboxes ? 
+                            /* CHECKBOX */
+                            <CheckboxGroup>
+                                <HStack spacing="24px">
+                                    {formOptions.map(option=><Checkbox value={option.name} isChecked={option.selected} onChange={(e)=>handleClick(e)}>{option.name}</Checkbox>)}
+                                </HStack>
+                            </CheckboxGroup >
+                        :
+                        /* RADIO GROUP */
+                        <RadioGroup>
+                            <HStack spacing="24px">
+                                {formOptions.map(option=><Radio value={option.name} isChecked={option.selected} onChange={(e)=>handleClick(e)}>{option.name}</Radio>)}
+                            </HStack>
+                        </RadioGroup>
                     :
-                    <CheckboxGroup>
-                        <HStack spacing="24px">
-                            {formOptions.map(option=><Checkbox value={option.name} isChecked={option.selected} onChange={(e)=>handleClick(e)}>{option.name}</Checkbox>)}
-                        </HStack>
-                    </CheckboxGroup >}
+                        /* INPUT */
+                        <Input value={inputValue} onChange={e => setInputValue(e.target.value)}/>
+                    }
                     
                 </FormControl>
             </ModalBody>

@@ -95,6 +95,12 @@ export const getUserRef = async (userId) => {
   return userRef;
 }
 
+// Gets user data, takes in reference arg
+export const getUserFromRef = async (userRef) => {
+  const userDoc = await userRef.get();
+  return { ...userDoc.data(), id: userDoc.id };
+}
+
 // Get documents in a collection created by a user
 export const getUserDocs = async (colName, userId) => {
   const userRef = await getUserRef(userId);
