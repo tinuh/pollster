@@ -27,6 +27,7 @@ import ReportIssue from "./pages/reportIssue";
 import Contact from "./pages/contact";
 import PollResults from './pages/pollresults';
 import Discover from './pages/discover';
+import Homepage from './pages/homePage';
 
 function App() {
   //const { user, loadingUser } = useAuth();
@@ -38,7 +39,7 @@ function App() {
             <ReactNotification/>
             <Switch>
               
-              <Route exact path = "/" component = {Dashboard}/>
+              <Route exact path = "/" component = {user?Dashboard:Homepage}/>
               <Route path = "/discover" component = {Discover}/>
               <Route path = "/create" component = {Create}/>
               <Route path = "/profile" component = {Profile}/>
