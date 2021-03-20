@@ -6,12 +6,12 @@ import {
     Heading,
     SimpleGrid,
     Container,
+    useToast
 } from "@chakra-ui/react";
 
 import Poll from '../components/poll';
 import Pollpopup from '../components/pollPopup';
 import { getCol } from '../lib/db.js';
-import initFirebase from '../lib/firebase';
 
 /* const containerStyle = {
     width: '100%',
@@ -24,14 +24,32 @@ import initFirebase from '../lib/firebase';
 }; */
 
 export default function Discover(){
-    initFirebase();
-    let loading = true;
-    let markers = null;
+
+    const [markers, setMarkers] = React.useState(null);
+    const [location, setLocation] = React.useState([]);
+    const toast = useToast();
 
     React.useEffect(async()=>{
-        markers = await getCol("polls");
-        loading=false;
-    })
+        setMarkers(await getCol("polls"));
+        console.log(markers)
+
+        /*if (navigator.geolocation) { //check if geolocation is available
+            await navigator.geolocation.getCurrentPosition(async function(pos){
+                setLocation([pos.coords.latitude, pos.coords.longitude]);
+            }, 
+            function(error){
+                setLoading(false);
+                toast({
+                    title: "Error",
+                    description: "Location Data in-accessible or denied",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true
+                })
+        
+            })
+        }*/
+    },[]);
 
     const [post, setPost] = React.useState(null);
     const [showPopup, setShowPopup] = React.useState(false);
@@ -42,15 +60,16 @@ export default function Discover(){
         setShowPopup(true);
     }
 
-    if (!loading){
+
+    if (markers){
         return (
             <Box align="center">
                 <Heading>Map!</Heading>
                 {showPopup && <Pollpopup set={setShowPopup} data={post} />}
                 <Box w="90%" h="50vw" borderWidth="1px" borderRadius="lg" overflow="hidden">
-                    <Map defaultCenter={[39.0458, 76.6413]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
+                    <Map defaultCenter={[39.0831315, -77.2049467]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
                         {
-                            markers.map(marker => <Marker anchor={[marker.location.lat, marker.location.long]} payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} />)
+                            markers.map(marker => <Marker anchor={[marker.location._lat, marker.location._long]} payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} />)
                         }
                         
                     </Map>
