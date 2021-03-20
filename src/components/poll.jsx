@@ -11,7 +11,7 @@ import Pollpopup from './pollPopup';
 export default function Poll(props){
 
     const [showModal, setShowModal] = React.useState(false);
-    const [votes, setVotes] = React.useState(5); //replce with prop
+    const [votes, setVotes] = React.useState(Math.floor(Math.random()*5)); //replce with prop
     const [hasVoted, setVoted] = React.useState('');
 
     function upVote(){
