@@ -5,6 +5,7 @@ export default function Dashboard() {
         <div>
             <center>
                 <h1>Pollster</h1>
+                <Poll />
             </center>
         </div>
     )

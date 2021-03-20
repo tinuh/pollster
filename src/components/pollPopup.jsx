@@ -1,13 +1,6 @@
 import React from 'react';
 
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,} from "@chakra-ui/react"
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,} from "@chakra-ui/react"
 
 export default function Pollpopup(props){
 
@@ -17,10 +10,10 @@ export default function Pollpopup(props){
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader>{props.pollname}</ModalHeader>
+            <ModalHeader>{props.data.pollname}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                {props.form}
+                {props.data.form}
             </ModalBody>
 
                 <ModalFooter>
