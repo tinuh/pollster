@@ -15,7 +15,28 @@ export const addDoc = async (colName, docData, docId) => {
       // Error
     });
   } else {
-    newDocRef = await db.collection(colName).add(docData);
+    newDocRef = await db.collection(colName).add(docData)
+    .catch((err) => {
+      // Error
+    });
+  }
+  return newDocRef;
+}
+
+// Adds a document to a subcollection
+// Returns new document ref
+export const addSubDoc = async (colName, docId, subColName, subDocData, subDocId) => {
+  var newDocRef;
+  if (subDocId) { // If subDocId is provided
+    newDocRef = await db.collection(colName).doc(docId).collection(subColName).doc(subDocId).set(subDocData)
+    .catch((err) => {
+
+    });
+  } else {
+    newDocRef = await db.collection(colName).doc(docId).collection(subColName).add(subDocData)
+    .catch((err) => {
+      // Error
+    });
   }
   return newDocRef;
 }
@@ -44,11 +65,27 @@ export const getCol = async (colName) => {
   return docs;
 }
 
+// Deletes a document and all of its collections
+export const deleteDoc = async (colName, docId) => {
+  const docRef = db.collection(colName).doc(docId);
+
+  // Delete responses subCol (temp workaround)
+  const resDocs = await docRef.collection('responses').get();
+  resDocs.forEach(async doc => {
+    await docRef.collection('responses').doc(doc.id).delete();
+  });
+
+  // Delete doc
+  await docRef.delete();
+}
+
+// Gets ref of a user (for creating polls)
 export const getUserRef = async (userId) => {
   const userRef = await db.collection("users").doc(userId);
   return userRef;
 }
 
+// Get documents in a collection created by a user
 export const getUserDocs = async (colName, userId) => {
   const userRef = await getUserRef(userId);
   const snapshot = await db.collection(colName).where('author', '==', userRef).get();
