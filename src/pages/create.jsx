@@ -129,7 +129,7 @@ export default function Create() {
 
                 <FormControl id="name" isRequired>
                     <FormLabel>Poll Name</FormLabel>
-                    <Input value = {form.name} onChange={(e) => handleChange(e, "name")} placeholder="Poll name" />
+                    <Input value = {form.name} onChange={(e) => handleChange(e, "name")} placeholder="Poll name" autoComplete="off" />
                 </FormControl><br/>
                 <FormControl id="description" isRequired>
                     <FormLabel>Description</FormLabel>
@@ -137,7 +137,6 @@ export default function Create() {
                         value={form.description}
                         onChange={(e) => handleChange(e, "description")}
                         placeholder="Enter your description here"
-                        size="sm"
                     />
                 </FormControl><br/>
                 <FormControl id="question" isRequired>
