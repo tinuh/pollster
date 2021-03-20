@@ -23,6 +23,7 @@ import Logout from "./pages/logout";
 import Create from "./pages/create";
 import Profile from "./pages/profilepage";
 import NotFound from "./components/NotFound";
+import ReportIssue from "./pages/reportIssue";
 import Contact from "./pages/contact";
 import PollResults from './pages/pollresults';
 import Discover from './pages/discover';
@@ -39,9 +40,10 @@ function App() {
               
               <Route exact path = "/" component = {Dashboard}/>
               <Route path = "/discover" component = {Discover}/>
-              <Route path = "/contact" component = {Contact}/>
               <Route path = "/create" component = {Create}/>
               <Route path = "/profile" component = {Profile}/>
+              <Route path = "/contact" component = {Contact}/>
+              <Route path = "/reportissue" component = {ReportIssue}/>
 
               {/* AUTH */}
               <Route path = "/login" component = {Login}/>
