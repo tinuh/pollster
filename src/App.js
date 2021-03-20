@@ -46,6 +46,7 @@ function App() {
                       <Route path = "/discover" component = {Discover}/>
                       <Route path = "/create" component = {Create}/>
                       <Route exact path = "/profile" component = {Profile}/>
+                      <Route exact path = "/profile/:uid" component = {Profile}/>
                       <Route path = "/contact" component = {Contact}/>
                       <Route path = "/reportissue" component = {ReportIssue}/>
 
@@ -55,7 +56,6 @@ function App() {
                       <Route path = "/logout" component = {Logout}/>
 
                       {/* Change to /dynamic by a poll id */}
-                      <Route path = "/pollresults" component = {PollResults}/>
                       <Route path = "/poll/:uid" component = {PollResults}/>
 
                       {/* NOT FOUND */}
