@@ -15,17 +15,32 @@ export default function Poll(props){
     const [hasVoted, setVoted] = React.useState('');
 
     function upVote(){
-        if (hasVoted!=='up'){
-            setVotes(votes++);
+        if (hasVoted==='down'){
+            setVotes(votes+2);
             setVoted('up');
         }
-        console.log(hasVoted!=='up');
+        else if (hasVoted===''){
+            setVotes(votes+1);
+            setVoted('up');
+        }
+        else{
+            setVotes(votes-1);
+            setVoted('')
+        }
     }
 
     function downVote(){
-        if (hasVoted!=='down'){
-            setVotes(votes--);
+        if (hasVoted==='up'){
+            setVotes(votes-2);
             setVoted('down');
+        }
+        else if (hasVoted===''){
+            setVotes(votes-1);
+            setVoted('down');
+        }
+        else{
+            setVotes(votes+1);
+            setVoted('')
         }
     }
 
@@ -42,7 +57,7 @@ export default function Poll(props){
                 mb={0}
                 >    
                 <GridItem rowSpan={2} colSpan={1} ml="2vw" mt="1vw">
-                    <ChevronUpIcon onClick={upVote} /> <Text>5{/*props.upvotes*/}</Text> <ChevronDownIcon onClick={downVote} />
+                    <ChevronUpIcon onClick={upVote} color={hasVoted==="up" && "green"} /> <Text>{votes}{/*props.upvotes*/}</Text> <ChevronDownIcon onClick={downVote} color={hasVoted==="down" && "red"} />
                 </GridItem>
                 <GridItem colSpan={4} mt="2vw">
                     <Heading as="h6" size="md"> Poll title {/*props.pollName*/} </Heading>
