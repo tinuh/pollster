@@ -76,8 +76,8 @@ export default function Discover(){
                         }
                         {
                             markers.map(marker => 
-                                <Overlay anchor={[marker.location._lat, marker.location._long]}>
-                                    <img src={()=>getUserRef(marker.author)} payload={marker} width={50} height={50} onClick={({ payload }) => handleClick(payload)} alt='' />
+                                <Overlay anchor={[marker.location._lat, marker.location._long]} offset={[10, 40]}>
+                                    <img src={async()=>await getUserRef(marker.author)} payload={marker} width={20} height={20} onClick={({ payload }) => handleClick(payload)} alt='' />
                                 </Overlay>
                             )
                         }
