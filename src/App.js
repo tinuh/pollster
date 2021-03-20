@@ -4,9 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { ChakraProvider, Box } from "@chakra-ui/react";
-import theme from "./lib/theme";
-import { AuthProvider } from './lib/auth';
+
 
 // Components
 import Navbar from './components/navbar';
@@ -19,27 +17,34 @@ import Register from "./pages/register";
 import Logout from "./pages/logout";
 import Create from "./pages/create";
 import NotFound from "./components/NotFound";
+import { useAuth } from './lib/auth';
+import {Box} from "@chakra-ui/react";
 
 function App() {
+  const { user, loadingUser } = useAuth();
+
   return (
-    <ChakraProvider theme={theme} resetCSS>
-      <AuthProvider>
         <Router>
           <Box minH="100vh">
             <Navbar/>
             <Switch>
+              
+              //Put Unrestricted Routes Here
               <Route exact path = "/" component = {Dashboard}/>
               <Route path = "/login" component = {Login}/>
               <Route path = "/register" component = {Register}/>
               <Route path = "/logout" component = {Logout}/>
-              <Route path = "/create" component = {Create}/>
+
+              {(user && !loadingUser) &&
+                //Put restricted Routes Here
+                <Route path = "/create" component = {Create}/>
+              }
+
               <Route component = {NotFound}/>
             </Switch>
           </Box>
           <Footer/>
         </Router>
-      </AuthProvider>
-    </ChakraProvider>
   );
 }
 

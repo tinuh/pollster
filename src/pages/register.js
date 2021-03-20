@@ -34,7 +34,8 @@ export default function RegisterPage() {
     await firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(function() {
+    .then(() => {
+      // TODO: add user doc
       window.location.href = '/dashboard';
     })
     .catch(function(err) {
@@ -44,7 +45,10 @@ export default function RegisterPage() {
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithRedirect(provider);
+    await firebase.auth().signInWithRedirect(provider)
+    .then(() => {
+      // TODO: add user doc
+    });
   }
 
   if (!loadingUser && !user) return (

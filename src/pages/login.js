@@ -32,7 +32,7 @@ export default function LoginPage() {
     await firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(function() {
+    .then(() => {
       window.location.href = '/dashboard';
     })
     .catch(function(err) {
@@ -42,7 +42,10 @@ export default function LoginPage() {
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithRedirect(provider);
+    await firebase.auth().signInWithRedirect(provider)
+    .then(() => {
+      // TODO: add user doc
+    });
   }
 
   if (!loadingUser && !user) return (
