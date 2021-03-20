@@ -37,7 +37,7 @@ function App() {
             <Navbar/>
             <Switch>
               
-              <Route exact path = "/" component = {user?Dashboard:Homepage}/>
+              <Route exact path = "/" component = {Homepage}/> {/*user?Dashboard:Homepage*/}
               <Route path = "/discover" component = {Discover}/>
               <Route path = "/create" component = {Create}/>
               <Route exact path = "/profile" component = {Profile}/>
