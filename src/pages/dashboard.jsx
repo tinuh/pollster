@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react";
 
 import Navbar from '../components/navbar';
+import Poll from '../components/poll';
 
 export default function Dashboard() {
     return (
@@ -13,6 +14,7 @@ export default function Dashboard() {
             <Navbar/>
             <Box align="center">
                 <Heading as="h1">Pollster</Heading>
+                <Poll />
             </Box>
         </>
     )
