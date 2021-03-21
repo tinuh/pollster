@@ -23,7 +23,7 @@ export default function PollResults(){
                 setUser(userData);
             }
             catch {
-                toast({
+                await toast({
                     title: "Error",
                     description: "Poll does not exist!",
                     status: "error",
