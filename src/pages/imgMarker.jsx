@@ -18,6 +18,10 @@ export default function ProfileMarker(props){
         props.set2(true)
     }
 
+    if (image===''){
+        setImage("https://i.pinimg.com/originals/c5/ab/41/c5ab41e3f9766798af79b40d535f45e0.jpg")
+    }
+
     return (
         <div className = "image-cropper">
             <img style={{"borderRadius":"50%", "border":"2.5px solid lightblue"}} src={image} width={35} height={35} alt='' onClick={handleClick} />
