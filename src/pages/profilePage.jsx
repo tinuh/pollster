@@ -19,17 +19,19 @@ import {
     ModalFooter, 
     ModalBody, 
     ModalCloseButton,
+    SimpleGrid,
     //UnorderedList
 } from "@chakra-ui/react";
 
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
-import { addDoc, getDoc } from '../lib/db';
+import { addDoc, getDoc, getUserDocs } from '../lib/db';
 import { useParams } from 'react-router-dom'
 //import { FaBorderNone } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import Poll from "../components/poll";
 
 export default function Profile(props){
     const { user, loadingUser } = useAuth();
@@ -41,6 +43,7 @@ export default function Profile(props){
     const [desc, setDesc] = React.useState("");
     const [showIconModal, setShowIconModal] = React.useState(false);
     const [pfpLink, setPfpLink] = React.useState('');
+    const [polls, setPolls] = React.useState([]);
     const toast = useToast()
 
     React.useEffect(() => {
@@ -70,6 +73,8 @@ export default function Profile(props){
                     setDesc(userData.description);
                     setPfpLink(userData.logo);
                 }
+                const userDocs = await getUserDocs('polls', user.uid);
+                setPolls(userDocs);
             }
             catch{
                 toast({
@@ -80,6 +85,7 @@ export default function Profile(props){
                 })
             }
         }
+
 
         checkUserDoc();
     }, [user, loadingUser, uid, toast]);
@@ -208,7 +214,14 @@ export default function Profile(props){
                             </>
                         }
                     </Flex>
-                </Stack>
+                </Stack><br/>
+
+            <Heading size="lg" align = "left" fontWeight="bold">Polls</Heading>
+            <SimpleGrid p={4} columns={{ base: 0, md: 2, lg: 4 }} spacing={6}>
+                {polls && polls.map(poll => 
+                    <Poll name={poll.name} description={poll.description} data={poll} />
+                )}
+            </SimpleGrid>
             </Container>
         </Container>
     )
