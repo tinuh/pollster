@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {FormControl, FormLabel, Input, Textarea, Container, Button, Checkbox, useToast, Select, Heading, Box } from "@chakra-ui/react";
+import { Text,FormControl, FormLabel, Input, Textarea, Container, Button, Checkbox, useToast, Select, Heading, Box } from "@chakra-ui/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -233,8 +233,8 @@ export default function Create() {
                 )}
 
                 <Button colorScheme="green" onClick = {addChoice} disabled = {loading || type === "text"}>Add Choice</Button> &nbsp;
-                <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>
-                <Heading size = "h3" color = "red">Note: This Poll requires Location in order for this poll to be created.</Heading>
+                <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button>
+                <Text m={4}>Your location will be collected when you submit.</Text>
             </Container>
 
         </Box>
