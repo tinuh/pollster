@@ -4,7 +4,7 @@ import { Box, useToast } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { useParams } from 'react-router-dom';
-import { getDoc, getUserFromRef } from '../lib/db';
+import { getDoc, getUserFromRef, getSubDoc, getSubCol } from '../lib/db';
 import {Link} from 'react-router-dom';
 import { Map, Marker } from 'pigeon-maps';
 
@@ -35,10 +35,8 @@ export default function PollResults(){
             }
 
             try{
-                const responsesData = await getDoc('polls/' + id + "/responses");
+                const responsesData = await getSubCol("polls", id, "responses");
                 setResponses(responsesData);
-                console.log('polls/' + id + "/responses");
-                console.log(responsesData)
             }
             catch{
 
@@ -53,11 +51,11 @@ export default function PollResults(){
             <Heading align = "center" >Poll results</Heading>
             <Text ml="35vw" mt="1vw">Poll info:</Text>
             <Box ml="35vw" borderWidth="1px" borderRadius="lg" className="chart-container" style={{"position": "relative", "height":(pollHasVotes?"13vw":"11vw"), "width":"30vw"}}>
-                <Text ml="2vw" mt="1vw">Poll name: {poll.name}</Text> 
-                <Text ml="2vw" mt="1vw">Poll author: <Link to = {"/profile/" + user.id}>{user.displayName}</Link> </Text>
-                <Text ml="2vw" mt="1vw">Poll description: {poll.description}</Text> 
-                <Text ml="2vw" mt="1vw">Poll responses: {} </Text> 
-                {pollHasVotes && <Box><Text ml="2vw" mt="1vw">Poll votes: {2} </Text></Box> }
+                <Text ml="2vw" mt="1vw">Name: {poll.name}</Text> 
+                <Text ml="2vw" mt="1vw">Author: <Link to = {"/profile/" + user.id}>{user.displayName}</Link> </Text>
+                <Text ml="2vw" mt="1vw">Description: {poll.description}</Text> 
+                <Text ml="2vw" mt="1vw">Responses: {responses ? responses.length : 0} </Text> 
+                {/* {pollHasVotes && <Box><Text ml="2vw" mt="1vw">Poll votes: {2} </Text></Box> } */}
             </Box>
             <Text ml="35vw" mt="1vw">Responses:</Text>
             <Box ml="35vw" borderWidth="1px" borderRadius="lg" className="chart-container" style={{"position": "relative", "height":"30vh", "width":"30vw", "paddingTop":".5vw", "paddingBottom":"1vw"}}>
