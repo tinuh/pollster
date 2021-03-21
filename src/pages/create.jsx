@@ -234,7 +234,7 @@ export default function Create() {
 
                 <Button colorScheme="green" onClick = {addChoice} disabled = {loading || type === "text"}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button>
-                <Text m={4}>Your location will be collected when you submit.</Text>
+                <Text m={4} mb={12}>Your location will be collected when you submit.</Text>
             </Container>
 
         </Box>

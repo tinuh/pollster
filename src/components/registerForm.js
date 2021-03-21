@@ -7,7 +7,7 @@ export const RegisterForm = (props) => {
       <Stack spacing="6">
         <FormControl id="email">
           <FormLabel>Email address</FormLabel>
-          <Input value={props.email} onChange={e => props.setEmail(e.target.value)} name="email" type="email" autoComplete="email" required />
+          <Input value={props.email} onChange={e => props.setEmail(e.target.value)} name="email" type="email" autoComplete="off" required />
         </FormControl>
         <PasswordField password = {props.password} setPassword = {props.setPassword} />
         {props.message !== '' && <Text color="red">{props.message}</Text>}

@@ -23,8 +23,8 @@ export default function FooterComponent() {
       <Flex align="center" direction={{ base: "column", md: "row" }}>
         <Text m={2} color="gray.400">&copy; 2021 Pollster</Text>
         <Stack m={2} spacing={3} direction="row" align="center">
-          <RLink to="/contact">Contact us</RLink>
-          <RLink to="/reportissue">Report an issue</RLink>
+          {/*<RLink to="/contact">Contact us</RLink>
+          <RLink to="/reportissue">Report an issue</RLink>*/}
         </Stack>
       </Flex>
       <Stack m={2} spacing={4} direction="row" justify="center" align="center">
