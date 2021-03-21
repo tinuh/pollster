@@ -1,4 +1,4 @@
-# pollster ~ A community polling app with unlimited potential
+# Pollster ~ A community polling app with unlimited potential
 
 ## For everyone, and anyone.
 Teachers, members of the government, and even concerned citizens can launch polls about problems they are facing to get opinions on the best method to approach the problem. Or, anyone can create polls just for fun!
