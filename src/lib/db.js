@@ -75,6 +75,20 @@ export const getCol = async (colName) => {
   return docs;
 }
 
+// Fetches all documents from a collection
+export const getSubCol = async (colName, docId, subColName) => {
+  const snapshot = await db.collection(colName).doc(docId).collection(subColName).get();
+  if (snapshot.empty) {
+    return [];
+  }
+
+  var docs = [];
+  snapshot.forEach(doc => {
+    docs.push({ ...doc.data(), id: doc.id });
+  });
+  return docs;
+}
+
 // Deletes a document and all of its collections
 export const deleteDoc = async (colName, docId) => {
   const docRef = db.collection(colName).doc(docId);
