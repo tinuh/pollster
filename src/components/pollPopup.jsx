@@ -22,10 +22,12 @@ import {
     Button,
     Input,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 
 export default function PollPopup(props){
     initFirebase();
+    const toast = useToast();
 
     const [ open, setOpen ] = React.useState(true);
     const canViewPollResults = true; // always visible for now
@@ -49,15 +51,33 @@ export default function PollPopup(props){
     }
 
     async function handleSubmit(){
+        const answer = type === 'multipleChoice' ? formOptions.map(answer => answer.selected) : inputValue;
+
+        if (type === 'multipleChoice' && !answer.includes(true) 
+        || type === 'text' && inputValue.trim() === '') {
+            return toast({
+                title: "Invalid submission",
+                description: "Your submission is invalid!",
+                status: "error",
+                isClosable: true
+            });
+        }
+
         handleClose();
         //Send the form options state here, has which options the user picked
-        const answer = type === 'multipleChoice' ? formOptions.map(answer => answer.selected) : inputValue;
         const ip = await publicIp.v4({
             fallbackUrls: ['https://ifconfig.co/ip']
         });
         await addSubDoc('polls', props.data.id, 'responses', {
-            ip: ip,
+            ip,
             answer
+        });
+
+        toast({
+            title: "Response saved",
+            description: "Your response has been saved!",
+            status: "success",
+            isClosable: true
         });
     }
 
@@ -91,7 +111,7 @@ export default function PollPopup(props){
                         </RadioGroup>
                     :
                         /* INPUT */
-                        <Input value={inputValue} onChange={e => setInputValue(e.target.value)}/>
+                        <Input value={inputValue} onChange={e => setInputValue(e.target.value)} autoComplete="off"/>
                     }
                     
                 </FormControl>
