@@ -13,6 +13,7 @@ export default function PollResults(){
     const pollHasVotes = true;
     const [poll, setPoll] = React.useState(false);
     const [user, setUser] = React.useState(false);
+    const [responses, setResponses] = React.useState(false);
 
     React.useEffect(() => {
         async function getInfo(){
@@ -30,6 +31,16 @@ export default function PollResults(){
                     isClosable: true
                 });
             }
+
+            try{
+                const responsesData = await getDoc('polls/' + id + "/responses");
+                setResponses(responsesData);
+                console.log('polls/' + id + "/responses");
+                console.log(responsesData)
+            }
+            catch{
+
+            }
             
         }
         getInfo();
@@ -43,7 +54,7 @@ export default function PollResults(){
                 <Text ml="2vw" mt="1vw">Poll name: {poll.name}</Text> 
                 <Text ml="2vw" mt="1vw">Poll author: <Link to = {"/profile/" + user.id}>{user.displayName}</Link> </Text>
                 <Text ml="2vw" mt="1vw">Poll description: {poll.description}</Text> 
-                <Text ml="2vw" mt="1vw">Poll responses: {5} </Text> 
+                <Text ml="2vw" mt="1vw">Poll responses: {} </Text> 
                 {pollHasVotes && <Box><Text ml="2vw" mt="1vw">Poll votes: {2} </Text></Box> }
             </Box>
             <Text ml="35vw" mt="1vw">Responses:</Text>
