@@ -8,21 +8,40 @@ import {
     Container,
     Stack,
     Center,
+    Button,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { useParams } from 'react-router-dom';
-import { getDoc, getUserFromRef, getSubCol } from '../lib/db';
 import { Link } from 'react-router-dom';
 import { Map, Marker } from 'pigeon-maps';
 
+import initFirebase from '../lib/firebase';
+import 'firebase/auth';
+import { useAuth } from '../lib/auth';
+import { getDoc, getUserFromRef, getSubCol, deleteDoc } from '../lib/db';
+
 export default function PollResults(){
+    initFirebase();
+    const { user, loadingUser } = useAuth();
+
     const { id } = useParams();
     const toast = useToast();
     const pollHasVotes = false;
     const [poll, setPoll] = React.useState(false);
-    const [user, setUser] = React.useState(false);
+    const [author, setAuthor] = React.useState(false);
     const [responses, setResponses] = React.useState([]);
     const [data, setData] = React.useState([]);
+    const [isOwner, setIsOwner] = React.useState(false);
     const getProvider = (x, y, z) => `https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/${z}/${x}/${y}.png`;
+
+    const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
 
     React.useEffect(() => {
         async function getInfo(){
@@ -31,7 +50,11 @@ export default function PollResults(){
                 pollData = await getDoc('polls', id);
                 const userData = await getUserFromRef(pollData.author);
                 setPoll(pollData);
-                setUser(userData);
+                setAuthor(userData);
+
+                if (user && !loadingUser && user.uid === userData.id) {
+                    setIsOwner(true);
+                }
             }
             catch {
                 await toast({
@@ -45,7 +68,7 @@ export default function PollResults(){
             /* try{ */
             const responsesData = await getSubCol("polls", id, "responses");
             setResponses(responsesData);
-            if (pollData.type === "multipleChoice"){
+            if (pollData?.type === "multipleChoice"){
                 let choices = [...pollData.choices];
                 var data = [];
                 for (let i=0; i < choices.length; i++){
@@ -60,9 +83,14 @@ export default function PollResults(){
             }
         }
         getInfo();
-    }, [id, toast])
+    }, [id, toast, user, loadingUser]);
 
-    return(user ? (
+    async function deletePoll() {
+        await deleteDoc('polls', id);
+        window.location.href = "/";
+    }
+
+    return(author ? (
         <Container maxW="container.sm">
             <Heading as="h1" m={12} align="center">Poll Info</Heading>
             <Stack direction="column" spacing={8} mb={8}>
@@ -100,6 +128,33 @@ export default function PollResults(){
                         <Marker anchor={[poll.location._lat, poll.location._long]}  width={50} height={50} />
                     </Map>
                 </Box>
+                {isOwner &&
+                    <>
+                        <Box align="center">
+                            <Heading as="h2" size="md">Poll Settings</Heading>
+                            <Text mb={4}>(Only you, as the poll author, can see this)</Text>
+                            <Button colorScheme="red" leftIcon={<DeleteIcon/>} onClick={() => setDeleteModalOpen(true)}>Delete this poll</Button>
+                        </Box>
+
+                        <Modal isOpen={deleteModalOpen} onClose={() => {setDeleteModalOpen(false)}}>
+                            <ModalOverlay />
+                            <ModalContent>
+                            <ModalHeader>Are you sure you want to delete this poll?</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>
+                                <Text>This action cannot be undone.</Text>
+                            </ModalBody>
+
+                            <ModalFooter>
+                                <Button colorScheme="red" mr={3} onClick={deletePoll}>
+                                    Delete
+                                </Button>
+                                <Button variant="ghost" onClick={() => {setDeleteModalOpen(false)}}>Cancel</Button>
+                            </ModalFooter>
+                            </ModalContent>
+                        </Modal>
+                    </>
+                }
             </Stack>
         </Container>
     ) : (
