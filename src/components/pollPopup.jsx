@@ -53,8 +53,7 @@ export default function PollPopup(props){
     async function handleSubmit(){
         const answer = type === 'multipleChoice' ? formOptions.map(answer => answer.selected) : inputValue;
 
-        if (type === 'multipleChoice' && !answer.includes(true) 
-        || type === 'text' && inputValue.trim() === '') {
+        if ((type === 'multipleChoice' && !answer.includes(true)) || (type === 'text' && inputValue.trim() === '')) {
             return toast({
                 title: "Invalid submission",
                 description: "Your submission is invalid!",
