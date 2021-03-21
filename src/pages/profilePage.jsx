@@ -96,10 +96,6 @@ export default function Profile(props){
     }
 
     async function savePfpLink(){
-        if (uid !== null || uid !== undefined){
-            return null;
-        }
-
         setShowIconModal(false);
         const newDoc = {
             ...userDoc,
@@ -174,7 +170,7 @@ export default function Profile(props){
                         </Stack>
                     </Flex>
                     <Flex justify="space-between">
-                        {((!loadingUser) && ((uid === user.uid) || (uid === undefined)))&& 
+                        {((!loadingUser) && ((uid === user?.uid) || (uid === undefined)))&& 
                             <>
                                 <Button colorScheme="gray" onClick={()=>setEdit(true)}>Edit</Button>
                                 <Button colorScheme="blue" onClick={saveData}>Save</Button>
