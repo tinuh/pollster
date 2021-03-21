@@ -44,36 +44,43 @@ export default function Profile(props){
         if (!user) return;
 
         async function checkUserDoc() {
-            const userData = await getDoc('users', uid ?? user.uid);
-            if (!userData) {
-                await addDoc('users', {
-                    displayName: "",
-                    description: "",
-                    logo: ""
-                }, user.uid);
-                setUserDoc({
-                    displayName: "",
-                    description: "",
-                    logo: ""
-                });
-                setDisplayName("");
-                setDesc("");
-                setPfpLink("");
-            } else {
-                setUserDoc(userData);
-                setDisplayName(userData.displayName);
-                setDesc(userData.description);
-                setPfpLink(userData.logo);
+            try{
+                const userData = await getDoc('users', uid ?? user.uid);
+    
+                if (!userData) {
+                    await addDoc('users', {
+                        displayName: "",
+                        description: "",
+                        logo: ""
+                    }, user.uid);
+                    setUserDoc({
+                        displayName: "",
+                        description: "",
+                        logo: ""
+                    });
+                    setDisplayName("");
+                    setDesc("");
+                    setPfpLink("");
+                } else {
+                    setUserDoc(userData);
+                    setDisplayName(userData.displayName);
+                    setDesc(userData.description);
+                    setPfpLink(userData.logo);
+                }
             }
-
+            catch{
+                toast({
+                    title: "Error",
+                    description: "User does not exist!",
+                    isClosable: true 
+                })
+            }
         }
+
         checkUserDoc();
-    }, [user, loadingUser, uid]);
+    }, [user, loadingUser, uid, toast]);
 
     async function saveData(){
-        if (uid !== null || uid !== undefined){
-            return null;
-        }
 
         setEdit(false);
 
