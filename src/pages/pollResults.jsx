@@ -14,13 +14,15 @@ export default function PollResults(){
     const pollHasVotes = true;
     const [poll, setPoll] = React.useState(false);
     const [user, setUser] = React.useState(false);
-    const [responses, setResponses] = React.useState(false);
+    const [responses, setResponses] = React.useState([]);
+    const [data, setData] = React.useState([]);
     const getProvider = (x, y, z) => `https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/${z}/${x}/${y}.png`;
 
     React.useEffect(() => {
         async function getInfo(){
+            let pollData;
             try{
-                const pollData = await getDoc('polls', id);
+                pollData = await getDoc('polls', id);
                 const userData = await getUserFromRef(pollData.author);
                 setPoll(pollData);
                 setUser(userData);
@@ -34,13 +36,22 @@ export default function PollResults(){
                 });
             }
 
-            try{
-                const responsesData = await getSubCol("polls", id, "responses");
-                setResponses(responsesData);
+            /* try{ */
+            const responsesData = await getSubCol("polls", id, "responses");
+            setResponses(responsesData);
+            console.log(responsesData)
+            let choices = [...pollData.choices];
+            var data = [];
+            for (let i=0; i < choices.length; i++){
+                data.push(0);
             }
-            catch{
-
-            }
+            
+            responsesData.forEach((res) => {
+                for (let i=0; i < res.answer.length; i++){
+                    data[i] += res.answer[i] ? 1 : 0;
+                }
+            })
+            setData(data);
             
         }
         getInfo();
@@ -59,13 +70,13 @@ export default function PollResults(){
             </Box>
             <Text ml="35vw" mt="1vw">Responses:</Text>
             <Box ml="35vw" borderWidth="1px" borderRadius="lg" className="chart-container" style={{"position": "relative", "height":"30vh", "width":"30vw", "paddingTop":".5vw", "paddingBottom":"1vw"}}>
-                <Doughnut
+                {poll.type === "multipleChoice" && (<Doughnut
                     data={{
-                        labels: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
-                        datasets: [{data:[1,2,3], backgroundColor: ['red', 'blue', 'orange']}]
+                        labels: [...poll.choices],
+                        datasets: [{data:data, backgroundColor: ['red', 'blue', 'orange']}]
                     }}
                     options={{ maintainAspectRatio: false }}
-                />
+                />)}
             </Box>
             <Text ml="35vw" mt="1vw">Location:</Text>
             <Box ml="35vw" mb="5vw" borderWidth="1px" borderRadius="lg" className="chart-container" style={{"position": "relative", "height":"30vh", "width":"30vw"}}>
