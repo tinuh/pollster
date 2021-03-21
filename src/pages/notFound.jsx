@@ -7,10 +7,10 @@ import {
 
 export default function NotFound() {
     return (
-        <Container maxW="container.sm" p={8}>
-          <Center>
-            <Text>404 - Not found</Text>
-          </Center>
-        </Container>
+      <Container maxW="container.sm" p={8}>
+        <Center>
+          <Text>404 - Not found</Text>
+        </Center>
+      </Container>
     )
 }
