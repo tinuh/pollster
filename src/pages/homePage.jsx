@@ -57,7 +57,7 @@ export default function homePage(){
                     </Center>
                     <Heading as="h3" size="lg" my={2}>Built with community values in mind.</Heading>
                     <Text fontSize="lg">
-                        Easily find polls near you. You can answer polls related to problems that are arising in your community that can help better the environment, aid in the growth of local startups, allow you to share your ideas with your local government, and so much more!
+                    Easily find polls near you, with an interactive map. You can answer polls related to problems that are arising in your community that can help better the environment, aid in the growth of local startups, allow you to share your ideas with your local government, and so much more!
                     </Text>
                 </Box>
                 <Box>
