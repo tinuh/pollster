@@ -20,7 +20,7 @@ export default function ProfileMarker(props){
 
     return (
         <div className = "image-cropper">
-            <img style={{"borderRadius":"50%", "border":"2px solid lightblue"}} src={image} width={35} height={35} alt='' onClick={handleClick} />
+            <img style={{"borderRadius":"50%", "border":"2.5px solid lightblue"}} src={image} width={35} height={35} alt='' onClick={handleClick} />
         </div>
     )
 }
