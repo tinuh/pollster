@@ -175,12 +175,13 @@ export default function Create() {
                         value={form.description}
                         onChange={(e) => handleChange(e, "description")}
                         placeholder="Enter your description here"
+                        autoComplete = "off"
                     />
                 </FormControl><br/>
 
                 <FormControl id="question" isRequired>
                     <FormLabel>Question</FormLabel>
-                    <Input value = {form.question} onChange={(e) => handleChange(e, "question")} placeholder="Question" />
+                    <Input value = {form.question} onChange={(e) => handleChange(e, "question")} placeholder="Question" autoComplete = "off" />
                 </FormControl><br/>
 
                 <FormControl id="type" isRequired>

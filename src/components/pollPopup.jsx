@@ -14,7 +14,7 @@ import {
     ModalBody, 
     ModalCloseButton, 
     FormControl, 
-    HStack, 
+    Stack, 
     Radio, 
     RadioGroup, 
     Checkbox, 
@@ -78,16 +78,16 @@ export default function PollPopup(props){
                         checkboxes ? 
                             /* CHECKBOX */
                             <CheckboxGroup>
-                                <HStack spacing="24px">
+                                <Stack direction="column" spacing={2}>
                                     {formOptions.map(option=><Checkbox value={option.name} isChecked={option.selected} onChange={(e)=>handleClick(e)}>{option.name}</Checkbox>)}
-                                </HStack>
+                                </Stack>
                             </CheckboxGroup >
                         :
                         /* RADIO GROUP */
                         <RadioGroup>
-                            <HStack spacing="24px">
+                            <Stack direction="column"  spacing={2}>
                                 {formOptions.map(option=><Radio value={option.name} isChecked={option.selected} onChange={(e)=>handleClick(e)}>{option.name}</Radio>)}
-                            </HStack>
+                            </Stack>
                         </RadioGroup>
                     :
                         /* INPUT */
@@ -98,12 +98,12 @@ export default function PollPopup(props){
             </ModalBody>
 
                 <ModalFooter>
+                    { canViewPollResults && <Link to={`poll/${props.data.id}`} ><Button colorScheme="green" mr={3} onClick={handleClose}>
+                        View Poll Results
+                    </Button></Link>}
                     <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
                         Submit
                     </Button>
-                    { canViewPollResults && <Link to={`poll/${props.data.id}`} ><Button colorScheme="red" mr={3} onClick={handleClose}>
-                        View Poll Results
-                    </Button></Link>}
                 </ModalFooter>
             </ModalContent>
         </Modal>

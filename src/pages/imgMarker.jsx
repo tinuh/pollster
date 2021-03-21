@@ -7,10 +7,12 @@ export default function ProfileMarker(props){
     const [image, setImage] = React.useState('');
 
     React.useEffect(()=> {
-        setImage(async()=>await getUserFromRef(props.marker.author).logo)
-    },[])
-
-    console.log(image)
+        async function getImage() {
+            const userDoc = await getUserFromRef(props.marker.author);
+            setImage(userDoc.logo);
+        }
+        getImage();
+    },[]);
 
     return (
         <Overlay anchor={[props.marker.location._lat, props.marker.location._long]} offset={[10, 40]} >
