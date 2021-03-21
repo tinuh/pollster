@@ -71,6 +71,14 @@ export default function Create() {
         setAnswers([...answers, ""]);
     }
 
+    function checkForDuplicates(array) {
+        let mutable = []
+        array.forEach((str) => {
+            mutable.push(str.trim())
+        })
+        return new Set(mutable).size !== mutable.length
+    }
+
     let submit = async() =>{
         setLoading(true);
         let values = form;
@@ -101,6 +109,17 @@ export default function Create() {
             toast({
                 title: "Error",
                 description: "Max: 8 Answers per poll",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            setLoading(false);
+            return undefined;
+        }
+        else if (values.type === "multipleChoice" && checkForDuplicates(answers)){
+            toast({
+                title: "Error",
+                description: "Please remove duplicate answers!",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -215,6 +234,7 @@ export default function Create() {
 
                 <Button colorScheme="green" onClick = {addChoice} disabled = {loading || type === "text"}>Add Choice</Button> &nbsp;
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button><br/><br/>
+                <Heading size = "h3" color = "red">Note: This Poll requires Location in order for this poll to be created.</Heading>
             </Container>
 
         </Box>

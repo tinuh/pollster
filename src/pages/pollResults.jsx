@@ -68,7 +68,7 @@ export default function PollResults(){
             <Stack direction="column" spacing={8} mb={8}>
                 <Box p={4} borderWidth="1px" borderRadius="lg" lineHeight={2}>
                     <Text>Name: {poll.name}</Text> 
-                    <Text>Author: <Link to={"/profile/" + user.id}>{user.displayName}</Link></Text>
+                    <Text>Author: <Link style = {{color: "#3182ce"}} to={"/profile/" + user.id}>{user.displayName + "(Click to View Profile)"}</Link></Text>
                     <Text>Description: {poll.description}</Text> 
                     <Text>Responses: {responses.length} </Text> 
                     {pollHasVotes && <Text>Poll votes: {2}</Text>}
