@@ -27,7 +27,7 @@ export default function Create() {
 
     React.useEffect(() => {
         if (!user && !loadingUser) return window.location.href = '/login';
-        if (!user) return;
+        if (!user || loadingUser) return;
 
         async function checkUserDoc() {
             const userData = await getDoc('users', user.uid);

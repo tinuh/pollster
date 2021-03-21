@@ -12,7 +12,7 @@ import {
 import Poll from '../components/poll';
 import Pollpopup from '../components/pollPopup';
 import { getCol } from '../lib/db.js';
-import ProfileMarker from './imgMarker';
+import ProfileMarker from '../components/imgMarker';
 
 /* const containerStyle = {
     width: '100%',

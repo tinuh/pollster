@@ -42,7 +42,7 @@ export default function Profile(props){
 
     React.useEffect(() => {
         if (!user && !loadingUser) return window.location.href = '/login';
-        if (!user) return;
+        if (!user || loadingUser) return;
 
         async function checkUserDoc() {
             try{

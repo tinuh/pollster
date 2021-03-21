@@ -24,7 +24,7 @@ export default function Dashboard() {
 
         async function checkUserDoc() {
             const userData = await getDoc('users', user.uid);
-            if (!userData) {
+            if (!userData || loadingUser) {
                 await addDoc('users', {
                     displayName: "",
                     description: "",
