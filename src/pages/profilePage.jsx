@@ -18,7 +18,8 @@ import {
     ModalHeader, 
     ModalFooter, 
     ModalBody, 
-    ModalCloseButton
+    ModalCloseButton,
+    //UnorderedList
 } from "@chakra-ui/react";
 
 import 'firebase/auth';
@@ -46,7 +47,6 @@ export default function Profile(props){
         async function checkUserDoc() {
             try{
                 const userData = await getDoc('users', uid ?? user.uid);
-    
                 if (!userData) {
                     await addDoc('users', {
                         displayName: "",
@@ -72,6 +72,7 @@ export default function Profile(props){
                 toast({
                     title: "Error",
                     description: "User does not exist!",
+                    status: "error",
                     isClosable: true 
                 })
             }
@@ -150,7 +151,7 @@ export default function Profile(props){
                 </ModalContent>
             </Modal>
 
-            <Heading align="center" m={12}>Your Profile</Heading>
+            <Heading align="center" m={12}>{uid === undefined ? "Your " : ""}Profile</Heading>
             <Container maxW='container.sm'>
                 <Stack p={4} borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Flex justify>
