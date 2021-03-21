@@ -10,4 +10,4 @@ The community can pick and choose which polls are most important for them, this 
 Easily find polls near you. You can answer polls related to problems that are arising in your community that can help better the environment, aid in the growth of local startups, allow you to share your ideas with your local government, and so much more!
 
 ## Use Pollster anywhere!
-Pollster is PWA optimized, so you can download it and run it as if it were a native app!
+Pollster is **PWA optimized**, so you can download it and run it as if it were a native app!
