@@ -77,7 +77,7 @@ export default function Discover(){
                         }
                         {
                             markers.map(marker => 
-                                <Overlay anchor={[marker.location._lat, marker.location._long]} offset={[10, 40]} >
+                                <Overlay anchor={[marker.location._lat, marker.location._long]} offset={[51, 54]} >
                                     <ProfileMarker marker={marker} set1={setPost} set2={setShowPopup} />
                                 </Overlay>
                             )
