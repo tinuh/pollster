@@ -6,6 +6,7 @@ import { Text } from "@chakra-ui/react";
 import { useParams } from 'react-router-dom';
 import { getDoc, getUserFromRef } from '../lib/db';
 import {Link} from 'react-router-dom';
+import { Map, Marker } from 'pigeon-maps';
 
 export default function PollResults(){
     const { id } = useParams();
@@ -13,6 +14,8 @@ export default function PollResults(){
     const pollHasVotes = true;
     const [poll, setPoll] = React.useState(false);
     const [user, setUser] = React.useState(false);
+    const [responses, setResponses] = React.useState(false);
+    const getProvider = (x, y, z) => `https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/${z}/${x}/${y}.png`;
 
     React.useEffect(() => {
         async function getInfo(){
@@ -30,6 +33,16 @@ export default function PollResults(){
                     isClosable: true
                 });
             }
+
+            try{
+                const responsesData = await getDoc('polls/' + id + "/responses");
+                setResponses(responsesData);
+                console.log('polls/' + id + "/responses");
+                console.log(responsesData)
+            }
+            catch{
+
+            }
             
         }
         getInfo();
@@ -43,7 +56,7 @@ export default function PollResults(){
                 <Text ml="2vw" mt="1vw">Poll name: {poll.name}</Text> 
                 <Text ml="2vw" mt="1vw">Poll author: <Link to = {"/profile/" + user.id}>{user.displayName}</Link> </Text>
                 <Text ml="2vw" mt="1vw">Poll description: {poll.description}</Text> 
-                <Text ml="2vw" mt="1vw">Poll responses: {5} </Text> 
+                <Text ml="2vw" mt="1vw">Poll responses: {} </Text> 
                 {pollHasVotes && <Box><Text ml="2vw" mt="1vw">Poll votes: {2} </Text></Box> }
             </Box>
             <Text ml="35vw" mt="1vw">Responses:</Text>
@@ -58,7 +71,9 @@ export default function PollResults(){
             </Box>
             <Text ml="35vw" mt="1vw">Location:</Text>
             <Box ml="35vw" mb="5vw" borderWidth="1px" borderRadius="lg" className="chart-container" style={{"position": "relative", "height":"30vh", "width":"30vw"}}>
-                
+                <Map defaultCenter={[poll.location._lat, poll.location._long]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
+                    <Marker anchor={[poll.location._lat, poll.location._long]}  width={50} height={50} />
+                </Map>
             </Box>
         </>
     ) : (<Heading align = "center">Loading...</Heading>))
