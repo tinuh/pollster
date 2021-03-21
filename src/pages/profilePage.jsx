@@ -73,7 +73,7 @@ export default function Profile(props){
                     setDesc(userData.description);
                     setPfpLink(userData.logo);
                 }
-                const userDocs = await getUserDocs('polls', user.uid);
+                const userDocs = await getUserDocs('polls', uid ?? user.uid);
                 setPolls(userDocs);
             }
             catch{
