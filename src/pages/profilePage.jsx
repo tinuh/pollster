@@ -215,13 +215,15 @@ export default function Profile(props){
                         }
                     </Flex>
                 </Stack><br/>
-
-            <Heading size="lg" align = "left" fontWeight="bold">Polls</Heading>
-            <SimpleGrid p={4} columns={{ base: 0, md: 2, lg: 4 }} spacing={6}>
-                {polls && polls.map(poll => 
-                    <Poll name={poll.name} description={poll.description} data={poll} />
-                )}
-            </SimpleGrid>
+            </Container>
+            
+            <Container maxW="container.lg" my={4}>
+                <Heading size="lg" align = "left" fontWeight="bold">Polls</Heading>
+                <SimpleGrid p={4} columns={{ base: 0, md: 2, lg: 4 }} spacing={6}>
+                    {polls && polls.map(poll => 
+                        <Poll name={poll.name} description={poll.description} data={poll} />
+                    )}
+                </SimpleGrid>
             </Container>
         </Container>
     )
