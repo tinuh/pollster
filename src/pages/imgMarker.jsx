@@ -1,5 +1,4 @@
 import React from 'react';
-import { Overlay } from 'pigeon-maps'
 import { getUserFromRef } from '../lib/db.js';
 
 export default function ProfileMarker(props){
@@ -14,9 +13,12 @@ export default function ProfileMarker(props){
         getImage();
     },[]);
 
+    function handleClick(){
+        props.set1(props.marker)
+        props.set2(true)
+    }
+
     return (
-        <Overlay anchor={[props.marker.location._lat, props.marker.location._long]} offset={[10, 40]} >
-            <img src={image} width={20} height={20} alt='' />
-        </Overlay>
+        <img src={image} width={20} height={20} border="1px solid black" alt='' onClick={handleClick} />
     )
 }
