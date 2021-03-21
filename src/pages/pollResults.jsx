@@ -6,7 +6,8 @@ import {
     Heading,
     Text,
     Container,
-    Stack
+    Stack,
+    Center,
 } from "@chakra-ui/react";
 import { useParams } from 'react-router-dom';
 import { getDoc, getUserFromRef, getSubCol } from '../lib/db';
@@ -91,5 +92,11 @@ export default function PollResults(){
                 </Box>
             </Stack>
         </Container>
-    ) : (<Heading align = "center">Loading...</Heading>))
+    ) : (
+        <Container maxW="container.sm" p={8}>
+            <Center>
+                <Text>Loading...</Text>
+            </Center>
+        </Container>
+  ))
 }
