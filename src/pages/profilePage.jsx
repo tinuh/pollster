@@ -27,6 +27,9 @@ import { useAuth } from '../lib/auth';
 import { addDoc, getDoc } from '../lib/db';
 import { useParams } from 'react-router-dom'
 //import { FaBorderNone } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 export default function Profile(props){
     const { user, loadingUser } = useAuth();
@@ -124,6 +127,31 @@ export default function Profile(props){
         setDesc(e.target.value);
     }
 
+    let share = () => {
+        let copyText = "https://www.pollster.ink/profile/" + user.uid;
+        
+        
+
+        try {
+            navigator.clipboard.writeText(copyText);
+
+            toast({
+                title: "Copied to Clipboard",
+                description: "The sharing link is copied to clipboard",
+                status: "success",
+                isClosable: true,
+            })
+        }
+        catch{
+            toast({
+                title: "Error",
+                description: "Error copying to clipboard",
+                status: "error",
+                isClosable: true,
+            })
+        }
+    }
+
     return (
         <Container maxW="container.lg" align="center">
 
@@ -172,8 +200,11 @@ export default function Profile(props){
                     <Flex justify="space-between">
                         {((!loadingUser) && ((uid === user?.uid) || (uid === undefined)))&& 
                             <>
-                                <Button colorScheme="gray" onClick={()=>setEdit(true)}>Edit</Button>
+                                
+                                <Button colorScheme="gray" leftIcon={<FontAwesomeIcon icon={faEdit}/>} onClick={()=>setEdit(true)}>Edit</Button>
                                 <Button colorScheme="blue" onClick={saveData}>Save</Button>
+                                <Button colorScheme="gray" variant="solid" onClick = {share} leftIcon={<FontAwesomeIcon icon={faShareAlt}/>}>Share</Button>
+
                             </>
                         }
                     </Flex>
