@@ -19,29 +19,44 @@ import {
   SimpleGrid,
   useColorModeValue as mode,
   VisuallyHidden,
+  useToast,
 } from '@chakra-ui/react';
 import Link from '../components/link';
 
 export default function RegisterPage() {
   initFirebase();
+  const toast = useToast();
   const { user, loadingUser } = useAuth();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [password2, setPassword2] = React.useState("");
-  const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
     if (user && !loadingUser) window.location.href = '/';
   }, [user, loadingUser]);
 
   async function signUp() {
-    if (password !== password2) return setMessage('Passwords don\'t match');
+    if (password !== password2) {
+      return toast({
+        title: "Error",
+        description: "Passwords do not match!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
     await firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((u) => { // u.user.uid
       window.location.href = '/';
     })
     .catch(function(err) {
-      setMessage(err.message);
+      toast({
+        title: "Error",
+        description: err.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     });
   }
 
@@ -52,7 +67,13 @@ export default function RegisterPage() {
       window.location.href = '/';
     })
     .catch(function(err) {
-      setMessage(err.message);
+      toast({
+        title: "Error",
+        description: err.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     });;
   }
 
@@ -85,7 +106,7 @@ export default function RegisterPage() {
             shadow="base"
             rounded={{ sm: 'lg' }}
           >
-            <RegisterForm email={email} setEmail={setEmail} signUp={signUp} message={message} password={password} setPassword={setPassword} password2={password2} setPassword2={setPassword2}/>
+            <RegisterForm email={email} setEmail={setEmail} signUp={signUp} password={password} setPassword={setPassword} password2={password2} setPassword2={setPassword2}/>
             <DividerWithText mt="6">or continue with</DividerWithText>
             <SimpleGrid mt="6" columns={1} spacing="3">
               <Button onClick={signInWithGoogle} color="currentColor" variant="outline">

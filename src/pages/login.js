@@ -19,15 +19,16 @@ import {
   SimpleGrid,
   useColorModeValue as mode,
   VisuallyHidden,
+  useToast,
 } from '@chakra-ui/react';
 import Link from '../components/link';
 
 export default function LoginPage() {
   initFirebase();
+  const toast = useToast();
   const { user, loadingUser } = useAuth();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
     if (user && !loadingUser) window.location.href = '/';
@@ -39,7 +40,13 @@ export default function LoginPage() {
       window.location.href = '/';
     })
     .catch(function(err) {
-      setMessage(err.message);
+      toast({
+        title: "Error",
+        description: err.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     });
   }
 
@@ -59,7 +66,13 @@ export default function LoginPage() {
       window.location.href = '/';
     })
     .catch(function(err) {
-      setMessage(err.message);
+      toast({
+        title: "Error",
+        description: err.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     });;
   }
 
@@ -92,7 +105,7 @@ export default function LoginPage() {
             shadow="base"
             rounded={{ sm: 'lg' }}
           >
-            <LoginForm email = {email} setEmail = {setEmail} signIn = {signIn} message = {message} password = {password} setPassword = {setPassword}/>
+            <LoginForm email = {email} setEmail = {setEmail} signIn = {signIn} password = {password} setPassword = {setPassword}/>
             <DividerWithText mt="6">or continue with</DividerWithText>
             <SimpleGrid mt="6" columns={1} spacing="3">
               <Button onClick={signInWithGoogle} color="currentColor" variant="outline">
