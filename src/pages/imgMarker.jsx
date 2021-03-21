@@ -19,6 +19,8 @@ export default function ProfileMarker(props){
     }
 
     return (
-        <img src={image} width={20} height={20} border="1px solid black" alt='' onClick={handleClick} />
+        <div className = "image-cropper">
+            <img className="profile-pic" src={image} width={20} height={20} border="1px solid black" alt='' onClick={handleClick} />
+        </div>
     )
 }
