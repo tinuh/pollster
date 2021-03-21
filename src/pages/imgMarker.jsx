@@ -11,7 +11,7 @@ export default function ProfileMarker(props){
             setImage(userDoc.logo);
         }
         getImage();
-    },[]);
+    },[props.marker.author]);
 
     function handleClick(){
         props.set1(props.marker)
