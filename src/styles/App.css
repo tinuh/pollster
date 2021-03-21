@@ -50,4 +50,9 @@ a {
 
 .profile-pic {
   border-radius: 50%;
+  border: 2.5px solid lightblue;
+}
+
+.profile-pic:hover{
+  cursor: pointer;
 }
